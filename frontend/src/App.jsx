@@ -55,8 +55,14 @@ function App() {
           >
             Home
           </NavLink>
-          <li>Add a Project</li>
-          <li>My Projects</li>
+          <NavLink
+            to={"/addProject"}
+            className={({ isActive, isPending }) =>
+              isActive ? "font-semibold text-orange-500" : ""
+            }
+          >
+            Add a Project
+          </NavLink>
           <NavLink
             to={"/chat"}
             className={({ isActive }) => {
@@ -66,21 +72,17 @@ function App() {
             Chat
           </NavLink>
         </ul>
-        {user?
-        (
+        {user ? (
           <button
-          className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white"
-          onClick={handleLogout}
-        >
-          Logout
-        </button>
-        ):
-        (
-          <button
-          className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white"
-        >
-          <NavLink to={'/login'}>Login</NavLink>
-        </button>
+            className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        ) : (
+          <button className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white">
+            <NavLink to={"/login"}>Login</NavLink>
+          </button>
         )}
       </div>
       <Navbar />

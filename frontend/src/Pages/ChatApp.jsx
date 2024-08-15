@@ -9,26 +9,29 @@ import { NavLink, useLoaderData } from "react-router-dom";
 import axios from "axios";
 import SenderBox from "../Components/SenderBox.jsx";
 import RecievedBox from "../Components/RecievedBox.jsx";
-import { addMessage, setGroup } from "../store/userSlice.js";
-import recieveAudio from '../assets/recieve.mp3'
+import { addMessage, setGroup, removeChat } from "../store/userSlice.js";
+import recieveAudio from "../assets/recieve.mp3";
+import backLogo from "../../src/assets/arrow-left-solid.svg";
 
 const ChatApp = () => {
-  const result = useLoaderData();
+  let result = useLoaderData();
+
+  /* Ensure result.data.data is always an array, otherwise we will not be able to use groups.map */
+  const groupsData = Array.isArray(result.data.data) ? result.data.data : [];
+
   const socket = useRef(null);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const chat = useSelector((state) => state.chat);
-  const groups = useSelector((state) => state.groups);
-  const [onlineUser, setOnlineUser] = useState([]);
+  const groups = useSelector((state) => state.groups || []);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [groupMembers, setGroupMembers] = useState([]);
   const messageBoxRef = useRef(null);
-  const recieve = new Audio(recieveAudio)
+  const recieve = new Audio(recieveAudio);
 
   useEffect(() => {
-    // setting socket
-    if(user){
+    if (user) {
       socket.current = io("http://localhost:8000", {
         query: { username: user?.username, id: user?._id },
       });
@@ -43,7 +46,7 @@ const ChatApp = () => {
 
   useEffect(() => {
     if (socket.current) {
-      dispatch(setGroup(result.data.data));
+      dispatch(setGroup(groupsData));
       socket.current.on("recieve", (data) => {
         recieve.play();
         dispatch(addMessage({ groupId: data.groupId, message: data.message }));
@@ -53,42 +56,39 @@ const ChatApp = () => {
     return () => {
       if (socket.current) {
         socket.current.off("Online");
-        socket.current.on("recieve",()=>{})
+        socket.current.on("recieve", () => {});
       }
     };
   }, []);
-  
-  // changing current Chat and Group Store
+
   useEffect(() => {
     setMessages(chat?.messages);
     setGroupMembers(chat?.groupMembers);
-    const div = document.getElementById(chat?._id)
-    if(div){
+    const div = document.getElementById(chat?._id);
+    if (div) {
       div.style.backgroundColor = "#e2e8f0 ";
-    return () => {
-      setMessages([]);
-      setGroupMembers([]);
-      div.style.backgroundColor = ""
-    };
+      return () => {
+        setMessages([]);
+        setGroupMembers([]);
+        div.style.backgroundColor = "";
+      };
     }
   }, [chat]);
 
-  // Function to scroll to the view where the last chat is
   useEffect(() => {
     if (messageBoxRef.current) {
       messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
     }
   }, [messages]);
 
-  // Listen for changes in groups and update local state
   useEffect(() => {
-    const group = groups?.find(grp => grp?._id === chat?._id);
+    const group = groups?.find((grp) => grp?._id === chat?._id);
     if (group) {
       setMessages(group.messages);
       setGroupMembers(group.groupMembers);
     }
   }, [groups]);
-  // Send Message Function
+
   const sendMessage = async () => {
     try {
       const msg = newMessage;
@@ -110,35 +110,82 @@ const ChatApp = () => {
     const senderData = {
       sender: user._id,
       content: newMessage,
-      createdAt: new Date(Date.now())
-    }
-    dispatch(addMessage({groupId: chat._id, message: senderData}))
+      createdAt: new Date(Date.now()),
+    };
+    dispatch(addMessage({ groupId: chat._id, message: senderData }));
     socket.current.emit("message", data);
     setNewMessage("");
   };
 
+  /* Function to reset chat state in store to null */
+  const handleBack = () => {
+    dispatch(removeChat());
+  };
+
   return (
     <>
-      <div className="grid grid-cols-5 h-[94vh] gap-4 pt-4 dark:bg-[#1f1f1ff7]">
-        <div className="col-start-1 sm:col-span-1 bg-white ml-2 rounded-lg dark:bg-[#1f1f1f]">
+      <div className="grid grid-cols-1 sm:grid-cols-5 h-[94vh] gap-4 sm:pt-4 dark:bg-[#1f1f1ff7]">
+        {/* // start of Stack */}
+        <div className="col-start-1 sm:col-span-1 bg-white md:ml-2 rounded-lg dark:bg-[#1f1f1f] h-[100vh]">
           <div className="h-20 flex items-center pl-2 gap-2 dark:text-white">
             <img
               src={user?.avatarImage}
               alt="user_img"
-              className="rounded-[50%] h-16 w-16"
+              className="rounded-full h-16 w-16"
             />
             <div>
-              <h2 className="font-semibold">{user?.username}</h2>
+              <h2 className="font-semibold text-sm sm:text-base">
+                {user?.username}
+              </h2>
             </div>
           </div>
-          {groups?.map((grp, idx) => (
-            <MessageBox key={idx} username={grp?.name} id={grp?._id} lastMessage={grp?.messages?.[grp.messages.length - 1]?.content}/>
-          ))}
+          {/* Safe mapping */}
+          {Array.isArray(groups) && groups.length > 0 ? (
+            groups.map((grp, idx) => (
+              <MessageBox
+                key={idx}
+                username={grp?.name}
+                id={grp?._id}
+                lastMessage={grp?.messages?.[grp.messages.length - 1]?.content}
+              />
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No groups available</p>
+          )}
         </div>
-        {/* // Message Box */}
-        <div className="bg-white col-span-4 rounded-md ml-1 grid grid-rows-12 overflow-hidden">
+        {/* // end of stack */}
+        <div
+          className={
+            chat
+              ? "bg-white col-span-1 sm:col-span-4 sm:rounded-md sm:ml-1 sm:grid sm:grid-rows-12 overflow-hidden absolute z-1 top-14 ml-0 sm:relative rounded-none sm:top-0 flex flex-col"
+              : ""
+          }
+        >
+          {/* Message Navbar */}
+          <div className="dark:bg-black sm:hidden h-16 rounded-none flex items-center px-4 gap-6">
+            <i
+              className="fa-solid fa-arrow-left text-xl dark:text-white"
+              onClick={handleBack}
+            ></i>
+            <div className="flex items-center gap-3">
+              <img
+                src={sampleAvatar}
+                alt=""
+                className="h-12 w-12 rounded-full"
+              />
+              <h2 className="font-semibold text-xl dark:text-white">
+                {chat?.name}
+              </h2>
+            </div>
+          </div>
+
+          {/* Messages from here */}
           <div
-            className="bg-white col-span-4 rounded-md rounded-b-none py-2 chat-area flex flex-col overflow-y-auto overflow-x-hidden row-start-1 row-span-11"
+            className={
+              chat
+                ? "bg-white col-span-4 rounded-md rounded-b-none py-2 chat-area flex flex-col overflow-y-auto overflow-x-hidden row-start-1 row-span-11 "
+                : ""
+            }
             ref={messageBoxRef}
           >
             {messages?.map((msg, idx) => {
@@ -160,15 +207,18 @@ const ChatApp = () => {
               );
             })}
           </div>
+          {/* send message section here */}
           <div className="flex overflow-x-hidden">
             <input
               type="text"
-              className="h-12 ml-2 outline-none w-[1125px] pl-4 msg-box"
+              className="h-12 ml-2 outline-none w-full sm:w-[1125px] pl-4 msg-box"
               placeholder="type message here ..."
               onChange={(e) => setNewMessage(e.target.value)}
-              onKeyDown={(e)=>{if(e.key=='Enter'){
-                sendMessage()
-              }}}
+              onKeyDown={(e) => {
+                if (e.key == "Enter") {
+                  sendMessage();
+                }
+              }}
               value={newMessage}
             />
             <button

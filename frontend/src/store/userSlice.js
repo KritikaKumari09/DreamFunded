@@ -24,6 +24,10 @@ const userSilce = createSlice({
     selectChat: (state, action) => {
       state.chat = action.payload;
     },
+    removeChat: (state,action) =>{
+      state.chat = null;
+    }
+    ,
     setGroup: (state, action)=>{
       state.groups = action.payload;
     },
@@ -42,5 +46,5 @@ const userSilce = createSlice({
   },
 });
 
-export const { login, logout,selectChat,setGroup,addMessage,toggleDrawer } = userSilce.actions;
+export const { login, logout,selectChat,setGroup,addMessage,toggleDrawer,removeChat } = userSilce.actions;
 export default userSilce.reducer;
