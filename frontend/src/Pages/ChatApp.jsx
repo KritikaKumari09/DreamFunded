@@ -126,8 +126,8 @@ const ChatApp = () => {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-5 h-[94vh] gap-4 sm:pt-4 dark:bg-[#1f1f1ff7]">
         {/* // start of Stack */}
-        <div className="col-start-1 sm:col-span-1 bg-white md:ml-2 rounded-lg dark:bg-[#1f1f1f] h-[100vh]">
-          <div className="h-20 flex items-center pl-2 gap-2 dark:text-white">
+      <div className="col-start-1 sm:col-span-1 md:ml-2 rounded-lg dark:bg-[#1f1f1f] h-[100vh] message-stack bg-[#1a1a1a]">
+          <div className="h-20 flex items-center pl-2 gap-2 text-white">
             <img
               src={user?.avatarImage}
               alt="user_img"
@@ -157,33 +157,40 @@ const ChatApp = () => {
         <div
           className={
             chat
-              ? "bg-white col-span-1 sm:col-span-4 sm:rounded-md sm:ml-1 sm:grid sm:grid-rows-12 overflow-hidden absolute z-1 top-14 ml-0 sm:relative rounded-none sm:top-0 flex flex-col"
+              ? "bg-black col-span-1 sm:col-span-4 sm:rounded-md sm:ml-1 sm:grid sm:grid-rows-12 overflow-hidden absolute z-1 top-14 ml-0 sm:relative rounded-none sm:top-0 flex flex-col"
               : ""
           }
         >
           {/* Message Navbar */}
-          <div className="dark:bg-black sm:hidden h-16 rounded-none flex items-center px-4 gap-6">
-            <i
-              className="fa-solid fa-arrow-left text-xl dark:text-white"
-              onClick={handleBack}
-            ></i>
-            <div className="flex items-center gap-3">
-              <img
-                src={sampleAvatar}
-                alt=""
-                className="h-12 w-12 rounded-full"
-              />
-              <h2 className="font-semibold text-xl dark:text-white">
-                {chat?.name}
-              </h2>
+          {chat && (
+            <div className="dark:bg-black sm:hidden h-16 rounded-none flex items-center px-4 gap-6">
+              <i
+                className="fa-solid fa-arrow-left text-xl text-white"
+                onClick={handleBack}
+              ></i>
+              <div className="flex items-center gap-3">
+                <img
+                  src={sampleAvatar}
+                  alt=""
+                  className="h-12 w-12 rounded-full"
+                />
+                <h2 className="font-semibold text-xl text-white">
+                  {chat?.name}
+                </h2>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Messages from here */}
+          {!chat && 
+           <div>
+            select chats
+           </div>
+          }
           <div
             className={
               chat
-                ? "bg-white col-span-4 rounded-md rounded-b-none py-2 chat-area flex flex-col overflow-y-auto overflow-x-hidden row-start-1 row-span-11 "
+                ? "bg-black col-span-4 sm:rounded-md rounded-b-none py-2 chat-area flex flex-col overflow-y-auto overflow-x-hidden row-start-1 row-span-11 "
                 : ""
             }
             ref={messageBoxRef}
@@ -208,26 +215,28 @@ const ChatApp = () => {
             })}
           </div>
           {/* send message section here */}
-          <div className="flex overflow-x-hidden">
-            <input
-              type="text"
-              className="h-12 ml-2 outline-none w-full sm:w-[1125px] pl-4 msg-box"
-              placeholder="type message here ..."
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key == "Enter") {
-                  sendMessage();
-                }
-              }}
-              value={newMessage}
-            />
-            <button
-              className="ml-2 h-12 w-24 bg-blue-700 text-white btn rounded-r-md"
-              onClick={sendMessage}
-            >
-              Send
-            </button>
-          </div>
+          {chat && (
+            <div className="flex overflow-x-hidden send-message">
+              <input
+                type="text"
+                className="h-12 ml-0 outline-none w-full sm:w-[1125px] pl-4 msg-box"
+                placeholder="type message here ..."
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key == "Enter") {
+                    sendMessage();
+                  }
+                }}
+                value={newMessage}
+              />
+              <button
+                className="ml-0 h-12 w-24 bg-blue-700 text-white btn rounded-r-md"
+                onClick={sendMessage}
+              >
+                Send
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>

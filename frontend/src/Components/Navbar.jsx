@@ -21,7 +21,7 @@ const Navbar = () => {
     } else html.classList.add("dark");
   };
   return (
-    <div className="flex justify-between sm:justify-around bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 relative top-0 sticky">
+    <div className="flex justify-between sm:justify-around bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 top-0 sticky z-50">
       <h2 className="ml-2">Logo</h2>
       <div className="sm:grid hidden ">
         <ul className="flex justify-center items-center gap-10">
