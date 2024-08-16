@@ -1,9 +1,31 @@
-body{
-    background-color: #f1f5f9;
+/* body {
+  background-color: rgba(0, 0, 0, 0.863);
+} */
+.chat-area {
+  background: radial-gradient(circle, #000000, #1a1a1a);
+  height: calc(100vh - 64px - 56px - 48px);
+  min-height: calc(100vh - 64px - 56px - 48px);
 }
-.chat-area{
-    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+@media (min-width: 640px) {
+  .chat-area {
+    min-height: calc(100vh - 48px - 58px);
+    position: fixed;
+    top: calc(56px);
+    min-width: calc(81vw - 32px);
+    padding: 0px 3px 0px 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  .message-stack{
+    width: 19vw;
+    height: calc(100vh - 48px - 10px);
+  }
 }
-.msg-box{
-    border: none;
+.msg-box {
+  border: none;
+}
+.send-message {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
 }

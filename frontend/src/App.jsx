@@ -85,9 +85,9 @@ function App() {
           </button>
         )}
       </div>
-      {/* <Navbar /> */}
+      <Navbar />
       <Outlet />
-      <button onClick={handleCheckout}>Checkout</button>
+      {/* <button onClick={handleCheckout}>Checkout</button> */}
     </>
   );
 }
