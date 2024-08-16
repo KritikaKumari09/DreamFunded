@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
-import Navbar from "./Components/Navbar.jsx";
+import Navbar from "./components/Navbar.jsx";
 import { logout } from "./store/userSlice";
 import { io } from "socket.io-client";
 import axios from "axios";
@@ -41,7 +41,7 @@ function App() {
       <div
         className={
           isDrawerOpen
-            ? "absolute z-10 dark:text-white bg-white h-full  w-[60%] right-0 sm:hidden dark:bg-black top-14 overflow-hidden flex flex-col justify-between pb-20 items-center"
+            ? "absolute z-10 dark:text-white  h-full  w-[60%] right-0 sm:hidden dark:bg-black top-14 overflow-hidden flex flex-col justify-between pb-20 items-center"
             : "absolute z-10 text-white h-full  w-0 right-0 sm:hidden dark:bg-black top-14 overflow-hidden flex flex-col justify-between pb-20 items-center"
         }
         id="drawer"
@@ -85,7 +85,7 @@ function App() {
           </button>
         )}
       </div>
-      <Navbar />
+      {/* <Navbar /> */}
       <Outlet />
       <button onClick={handleCheckout}>Checkout</button>
     </>

@@ -1,14 +1,14 @@
 import React, { useRef, useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import Navbar from "../Components/Navbar";
+// import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import "./ChatApp.css";
-import MessageBox from "../Components/MessageBox.jsx";
+import MessageBox from "../components/MessageBox.jsx";
 import sampleAvatar from "../assets/images.png";
 import { NavLink, useLoaderData } from "react-router-dom";
 import axios from "axios";
-import SenderBox from "../Components/SenderBox.jsx";
-import RecievedBox from "../Components/RecievedBox.jsx";
+import SenderBox from "../components/SenderBox.jsx";
+import RecievedBox from "../components/RecievedBox.jsx";
 import { addMessage, setGroup, removeChat } from "../store/userSlice.js";
 import recieveAudio from "../assets/recieve.mp3";
 import backLogo from "../../src/assets/arrow-left-solid.svg";
