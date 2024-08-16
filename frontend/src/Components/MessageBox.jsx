@@ -24,14 +24,14 @@ const MessageBox = ({ username, avatar, lastMessage ="", id }) => {
   
   return (
     <div
-      className="h-16 my-1 pl-4 flex gap-2 hover:bg-slate-200 items-center  cursor-pointer dark:hover:dark:bg-[#525151db]"
+      className="h-16 my-1 pl-4 flex gap-2  items-center  cursor-pointer hover:bg-[#525151db]"
       onClick={selectChatHandle}
       id={id}
       ref={msgBoxRef}
     >
       <img src={avatar || user} alt="" className="h-12 w-12 rounded-full" />
       <div>
-        <h2 className="text-md text-gray-500 dark:text-white">
+        <h2 className="text-md text-gray-500">
           {username || "username"}
         </h2>
         <p className="text-sm text-gray-500 overflow-y-hidden  h-6">{lastMessage || ""}</p>

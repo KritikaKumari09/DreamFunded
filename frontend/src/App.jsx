@@ -87,7 +87,7 @@ function App() {
       </div>
       <Navbar />
       <Outlet />
-      <button onClick={handleCheckout}>Checkout</button>
+      {/* <button onClick={handleCheckout}>Checkout</button> */}
     </>
   );
 }
