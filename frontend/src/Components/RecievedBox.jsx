@@ -11,7 +11,7 @@ const RecievedBox = ({ message, time, img, sender }) => {
 
   return (
     <span className="flex justify-start my-1 pr-1 pl-1 w-full">
-      <div className="h-8 w-8 rounded-full bg-red-400 mr-2 flex-shrink-0 overflow-hidden">
+      <div className="h-8 w-8 rounded-full mr-2 flex-shrink-0 overflow-hidden">
         <img src={img || profile} alt="user_img" className="w-full h-full object-cover" />
       </div>
       <span className="bg-[#1f1f1f] text-gray-300 max-w-[90%] sm:max-w-[70%] md:max-w-[50%] h-auto min-h-8 rounded-xl rounded-tl-none px-2 text-left break-words inline-block">

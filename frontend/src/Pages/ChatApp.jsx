@@ -124,6 +124,7 @@ const ChatApp = () => {
 
   return (
     <>
+      <Navbar/>
       <div className="grid grid-cols-1 sm:grid-cols-5 h-[94vh] gap-4 sm:pt-4 dark:bg-[#1f1f1ff7]">
         {/* // start of Stack */}
       <div className="col-start-1 sm:col-span-1 md:ml-2 rounded-lg dark:bg-[#1f1f1f] h-[100vh] message-stack bg-[#1a1a1a]">
