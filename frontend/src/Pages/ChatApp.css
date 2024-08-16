@@ -1,6 +1,7 @@
-/* body {
-  background-color: rgba(0, 0, 0, 0.863);
-} */
+body {
+  /* background-color: rgba(0, 0, 0, 0.863); */
+  /* background-color: #0E0C15; */
+}
 .chat-area {
   background: radial-gradient(circle, #000000, #1a1a1a);
   height: calc(100vh - 64px - 56px - 48px);

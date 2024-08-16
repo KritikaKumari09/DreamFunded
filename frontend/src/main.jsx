@@ -2,10 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
-import {
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./Pages/Login.jsx";
 import { Provider } from "react-redux";
 import { persistor, store } from "./store/store.js";
@@ -14,37 +11,24 @@ import axios from "axios";
 import Forget from "./Pages/Forget.jsx";
 import ForgetVerify from "./Pages/ForgetVerify.jsx";
 import ProtectedRoute from "./middleware/protectedRoute.jsx";
-import ChatApp from './Pages/ChatApp.jsx'
+import ChatApp from "./Pages/ChatApp.jsx";
 import HomePage from "./Pages/HomePage.jsx";
 import SignUp from "./Pages/SignUp.jsx";
 import Post from "./Pages/Post.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
+    element: <App />,
     children: [
       {
-        path: 'chat',
-        loader: async()=>{
-          
-            try {
-              return axios.get('http://localhost:8000/api/chat/getAllGroups',{withCredentials: true})
-            } catch (error) {
-              return error;
-            }
-          
-        },
-        element: <ChatApp/>
+        path: "",
+        element: <HomePage />,
       },
       {
-        path:'',
-        element: <HomePage/> 
+        path: "/addProject",
+        element: <Post />,
       },
-      {
-        path:'/addProject',
-        element: <Post/>
-      }
-    ]
+    ],
   },
   {
     path: "/login",
@@ -52,7 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <SignUp/>
+    element: <SignUp />,
   },
   {
     path: "/forget",
@@ -61,13 +45,26 @@ const router = createBrowserRouter([
   {
     path: "/forget/:id/verify",
     element: <ForgetVerify></ForgetVerify>,
-  }
+  },
+  {
+    path: "chat",
+    loader: async () => {
+      try {
+        return axios.get("http://localhost:8000/api/chat/getAllGroups", {
+          withCredentials: true,
+        });
+      } catch (error) {
+        return error;
+      }
+    },
+    element: <ChatApp />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
+  </Provider>
 );
