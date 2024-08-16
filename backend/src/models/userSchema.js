@@ -61,7 +61,7 @@ const userSchema = new Schema(
       {
           project: {
               type: Schema.Types.ObjectId,
-              ref: 'Project',
+              ref: "Project",
           },
           collectedAt: {
               type: Date,
