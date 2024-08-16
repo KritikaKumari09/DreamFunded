@@ -57,6 +57,23 @@ const userSchema = new Schema(
     PAN: {
       type: String,
     },
+    fundsCollectedProjects: [
+      {
+          project: {
+              type: Schema.Types.ObjectId,
+              ref: 'Project',
+          },
+          collectedAt: {
+              type: Date,
+              default: Date.now,
+          },
+          amountCollected: {
+              type: Number,
+              required: true,
+          },
+      },
+  ],
+
   },
   { timestamps: true }
 );
