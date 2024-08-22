@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { io } from "socket.io-client";
-// import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import "./ChatApp.css";
 import MessageBox from "../components/MessageBox.jsx";
 import sampleAvatar from "../assets/images.png";
-import { NavLink, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import axios from "axios";
 import SenderBox from "../components/SenderBox.jsx";
 import RecievedBox from "../components/RecievedBox.jsx";
@@ -123,16 +123,16 @@ const ChatApp = () => {
   };
 
   return (
-    <>
-      <Navbar/>
-      <div className="grid grid-cols-1 sm:grid-cols-5 h-[94vh] gap-4 sm:pt-4 dark:bg-[#1f1f1ff7]">
-        {/* // start of Stack */}
-      <div className="col-start-1 sm:col-span-1 md:ml-2 rounded-lg dark:bg-[#1f1f1f] h-[100vh] message-stack bg-[#1a1a1a]">
-          <div className="h-20 flex items-center pl-2 gap-2 text-white">
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <div className={`w-full sm:w-80 lg:w-96 ${chat ? 'hidden sm:block' : ''} bg-[#1a1a1a] dark:bg-[#1f1f1f] overflow-y-auto flex-shrink-0`}>
+          <div className="h-20 flex items-center px-4 gap-2 text-white">
             <img
               src={user?.avatarImage}
               alt="user_img"
-              className="rounded-full h-16 w-16"
+              className="rounded-full h-12 w-12"
             />
             <div>
               <h2 className="font-semibold text-sm sm:text-base">
@@ -140,7 +140,6 @@ const ChatApp = () => {
               </h2>
             </div>
           </div>
-          {/* Safe mapping */}
           {Array.isArray(groups) && groups.length > 0 ? (
             groups.map((grp, idx) => (
               <MessageBox
@@ -154,93 +153,86 @@ const ChatApp = () => {
             <p className="text-center text-gray-500">No groups available</p>
           )}
         </div>
-        {/* // end of stack */}
-        <div
-          className={
-            chat
-              ? "bg-black col-span-1 sm:col-span-4 sm:rounded-md sm:ml-1 sm:grid sm:grid-rows-12 overflow-hidden absolute z-1 top-14 ml-0 sm:relative rounded-none sm:top-0 flex flex-col"
-              : ""
-          }
-        >
-          {/* Message Navbar */}
-          {chat && (
-            <div className="dark:bg-black sm:hidden h-16 rounded-none flex items-center px-4 gap-6">
-              <i
-                className="fa-solid fa-arrow-left text-xl text-white"
-                onClick={handleBack}
-              ></i>
-              <div className="flex items-center gap-3">
+
+        {/* Chat Area */}
+        <div className={`flex-1 flex flex-col ${!chat ? 'hidden sm:flex' : ''}`}>
+          {chat ? (
+            <>
+              {/* Chat Header */}
+              <div className="bg-white dark:bg-black h-16 flex items-center px-4 gap-4 border-b dark:border-gray-700 flex-shrink-0">
+                <button 
+                  className="sm:hidden text-xl text-gray-600 dark:text-white"
+                  onClick={handleBack}
+                >
+                  <i className="fa-solid fa-arrow-left"></i>
+                </button>
                 <img
                   src={sampleAvatar}
                   alt=""
-                  className="h-12 w-12 rounded-full"
+                  className="h-10 w-10 rounded-full"
                 />
-                <h2 className="font-semibold text-xl text-white">
+                <h2 className="font-semibold text-lg text-gray-800 dark:text-white">
                   {chat?.name}
                 </h2>
               </div>
-            </div>
-          )}
 
-          {/* Messages from here */}
-          {!chat && 
-           <div>
-            select chats
-           </div>
-          }
-          <div
-            className={
-              chat
-                ? "bg-black col-span-4 sm:rounded-md rounded-b-none py-2 chat-area flex flex-col overflow-y-auto overflow-x-hidden row-start-1 row-span-11 "
-                : ""
-            }
-            ref={messageBoxRef}
-          >
-            {messages?.map((msg, idx) => {
-              const obj = groupMembers.find((user) => user._id === msg.sender);
-              return msg.sender === user?._id ? (
-                <SenderBox
-                  message={msg.content}
-                  time={msg.createdAt}
-                  key={idx}
-                />
-              ) : (
-                <RecievedBox
-                  message={msg.content}
-                  time={msg.createdAt}
-                  img={obj?.avatarImage || sampleAvatar}
-                  key={idx}
-                  sender={obj?.username || "Unknown"}
-                />
-              );
-            })}
-          </div>
-          {/* send message section here */}
-          {chat && (
-            <div className="flex overflow-x-hidden send-message">
-              <input
-                type="text"
-                className="h-12 ml-0 outline-none w-full sm:w-[1125px] pl-4 msg-box"
-                placeholder="type message here ..."
-                onChange={(e) => setNewMessage(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key == "Enter") {
-                    sendMessage();
-                  }
-                }}
-                value={newMessage}
-              />
-              <button
-                className="ml-0 h-12 w-24 bg-blue-700 text-white btn rounded-r-md"
-                onClick={sendMessage}
+              {/*Below code for  Messages */}
+              <div 
+                className="flex-1 overflow-y-auto p-4 bg-gray-50 dark:bg-gray-900"
+                ref={messageBoxRef}
               >
-                Send
-              </button>
+                {messages?.map((msg, idx) => {
+                  const obj = groupMembers.find((user) => user._id === msg.sender);
+                  return msg.sender === user?._id ? (
+                    <SenderBox
+                      message={msg.content}
+                      time={msg.createdAt}
+                      key={idx}
+                    />
+                  ) : (
+                    <RecievedBox
+                      message={msg.content}
+                      time={msg.createdAt}
+                      img={obj?.avatarImage || sampleAvatar}
+                      key={idx}
+                      sender={obj?.username || "Unknown"}
+                    />
+                  );
+                })}
+              </div>
+
+              {/* Below code for Message Input */}
+              <div className="bg-white dark:bg-gray-800 p-4 border-t dark:border-gray-700 flex-shrink-0">
+                <div className="flex items-center">
+                  <input
+                    type="text"
+                    className="flex-grow h-12 outline-none px-4 bg-gray-100 dark:bg-gray-700 dark:text-white border border-gray-300 dark:border-gray-600 rounded-l-md"
+                    placeholder="Type a message..."
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        sendMessage();
+                      }
+                    }}
+                    value={newMessage}
+                  />
+                  <button
+                    className="h-12 px-6 bg-blue-700 text-white rounded-r-md"
+                    onClick={sendMessage}
+                  >
+                    Send
+                  </button>
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center justify-center h-full text-gray-500">
+              Select a chat to start messaging
             </div>
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

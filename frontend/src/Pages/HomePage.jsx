@@ -1,11 +1,25 @@
 import React from 'react'
+import  ButtonGradient from "../assets/svg/ButtonGradient"
+import Header from '../components/Header.jsx'
+import Hero from '../components/Hero.jsx'
+import AboutUs from '../components/AboutUs.jsx'
+import Footer from '../components/Footer.jsx'
 
 function HomePage() {
   return (
-    <div className='h-full' >
-      <h1 className='text-orange-500 text-balance text-5xl text-center font-bold py-4'>Millions of Dreams Funded Here</h1>
-      {/* HomePageContent Here */}
-    </div>
+    <>
+    <h1 className="text-3xl font-bold underline ">
+   
+   </h1>
+   <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
+   <Header/>
+   <Hero/>
+   <AboutUs/>
+   
+   <Footer/>
+   </div>
+   <ButtonGradient/>
+   </>
   )
 }
 

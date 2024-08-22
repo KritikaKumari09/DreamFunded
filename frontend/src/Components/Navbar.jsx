@@ -53,16 +53,16 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex gap-4 items-center">
-        <label class="switch">
+        {/* <label class="switch">
           <input type="checkbox" ref={sliderRef} onChange={handleToggle} />
           <span class="slider round"></span>
-        </label>
+        </label> */}
         {/* <button onClick={handleToggle}>Switch</button> */}
-        <img
+        {/* <img
           src={user?.avatarImage || sample}
           alt="profile img"
           className="h-8 rounded-[50%] w-8"
-        />
+        /> */}
         {!isDrawerOpen ? (
           <div className="w-10 sm:hidden" onClick={handleDrawer}>
             <div className="border-b-2 border-black w-6 h-2 dark:border-white"></div>
