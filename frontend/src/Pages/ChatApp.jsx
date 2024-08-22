@@ -1,14 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { io } from "socket.io-client";
-import Navbar from "../components/Navbar";
+import Navbar from '../Components/Navbar.jsx'
 import { useDispatch, useSelector } from "react-redux";
 import "./ChatApp.css";
-import MessageBox from "../components/MessageBox.jsx";
+import MessageBox from "../Components/MessageBox.jsx";
 import sampleAvatar from "../assets/images.png";
 import { useLoaderData } from "react-router-dom";
 import axios from "axios";
-import SenderBox from "../components/SenderBox.jsx";
-import RecievedBox from "../components/RecievedBox.jsx";
+import SenderBox from "../Components/SenderBox.jsx";
+import RecievedBox from "../Components/RecievedBox.jsx";
 import { addMessage, setGroup, removeChat } from "../store/userSlice.js";
 import recieveAudio from "../assets/recieve.mp3";
 import backLogo from "../../src/assets/arrow-left-solid.svg";
@@ -29,6 +30,7 @@ const ChatApp = () => {
   const [groupMembers, setGroupMembers] = useState([]);
   const messageBoxRef = useRef(null);
   const recieve = new Audio(recieveAudio);
+  const isDrawerOpen = useSelector((state)=>state.isOpen)
 
   useEffect(() => {
     if (user) {
@@ -122,7 +124,67 @@ const ChatApp = () => {
     dispatch(removeChat());
   };
 
+  /* Function to logout the user */
+  const handleLogout = async () => {
+    try {
+      dispatch(logout());
+      await axios.post(
+        "http://localhost:8000/api/user/logout",
+        {},
+        { withCredentials: true }
+      );
+    } catch (error) {}
+  };
+
   return (
+    <>
+    <div
+    className={
+      isDrawerOpen
+        ? "absolute z-10 dark:text-white  h-full  w-[60%] right-0 sm:hidden dark:bg-black top-14 overflow-hidden flex flex-col justify-between pb-20 items-center"
+        : "absolute z-10 text-white h-full  w-0 right-0 sm:hidden dark:bg-black top-14 overflow-hidden flex flex-col justify-between pb-20 items-center"
+    }
+    id="drawer"
+  >
+    <ul className="flex justify-center items-center gap-6 flex-col mt-4">
+      <NavLink
+        to={"/"}
+        className={({ isActive, isPending }) =>
+          isActive ? "font-semibold text-orange-500" : ""
+        }
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to={"/addProject"}
+        className={({ isActive, isPending }) =>
+          isActive ? "font-semibold text-orange-500" : ""
+        }
+      >
+        Add a Project
+      </NavLink>
+      <NavLink
+        to={"/chat"}
+        className={({ isActive }) => {
+          return isActive ? "font-semibold text-orange-500" : "";
+        }}
+      >
+        Chat
+      </NavLink>
+    </ul>
+    {user ? (
+      <button
+        className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+    ) : (
+      <button className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white">
+        <NavLink to={"/login"}>Login</NavLink>
+      </button>
+    )}
+  </div>
     <div className="flex flex-col h-screen">
       <Navbar />
       <div className="flex flex-1 overflow-hidden">
@@ -233,6 +295,7 @@ const ChatApp = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

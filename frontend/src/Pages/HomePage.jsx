@@ -1,9 +1,9 @@
 import React from 'react'
-import  ButtonGradient from "../assets/svg/ButtonGradient"
-import Header from '../components/Header.jsx'
-import Hero from '../components/Hero.jsx'
-import AboutUs from '../components/AboutUs.jsx'
-import Footer from '../components/Footer.jsx'
+import  ButtonGradient from "../assets/svg/ButtonGradient.jsx"
+import Header from '../Components/Header.jsx'
+import Hero from '../Components/Hero.jsx'
+import AboutUs from '../Components/AboutUs.jsx'
+import Footer from '../Components/Footer.jsx'
 
 function HomePage() {
   return (
