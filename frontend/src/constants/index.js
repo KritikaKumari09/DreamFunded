@@ -24,7 +24,7 @@ import {
     {
       id: "1",
       title: "Start a Project",
-      url: "#startProj",
+      url: "/addProject",
     },
     {
       id: "2",
@@ -39,13 +39,13 @@ import {
     {
       id: "4",
       title: "New account",
-      url: "#signup",
+      url: "/register",
       onlyMobile: true,
     },
     {
       id: "5",
       title: "Sign in",
-      url: "#login",
+      url: "/login",
       onlyMobile: true,
     },
   ];
