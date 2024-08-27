@@ -84,12 +84,12 @@ const Post = () => {
   const [fund, setFund] = useState("");
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 text-gray-700">
       <div className="max-w-4xl w-full space-y-8 bg-gray-950 p-10 rounded-xl shadow-lg border border-color-1">
         <h1 className="text-3xl font-bold text-center text-color-1">Create New Project</h1>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
-            <div>
+            <div className="">
               <label htmlFor="title" className="block text-sm font-medium text-gray-400 mb-1">
                 Project Title
               </label>
