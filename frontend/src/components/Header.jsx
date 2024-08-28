@@ -1,12 +1,20 @@
 import DreamFundedLogo from "../assets/DreamFunded-Logo.png"
 import { navigation } from "../constants"
 import {disablePageScroll,enablePageScroll} from "scroll-lock"
-import {useLocation} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import Button from "./Button"
 import MenuSvg from "../assets/svg/MenuSvg"
 import {HamburgerMenu} from "./design/Header"
 import {useState} from "react"
+import { useDispatch, useSelector } from "react-redux";
+import {logout} from "../store/userSlice.js"
+import toast, { Toaster } from "react-hot-toast";
+
+import axios from "axios"
+
 const Header = () => {
+
+  const user = useSelector((state) => state.user);
   const pathname=useLocation();
   const [openNavigation, setOpenNavigation]=useState(false)
 
@@ -26,9 +34,92 @@ const Header = () => {
     enablePageScroll()
     setOpenNavigation(false)
   }
+
+// const navigate=useNavigate();
+//   const dispatch = useDispatch();
+
+// const handleLogout = () => {
+//   toast.promise(
+//     new Promise(async (resolve, reject) => {
+//       try {
+//         const response = await axios.post(
+//           "http://localhost:8000/api/user/logout",
+//           {},
+//           { withCredentials: true }
+//         );
+//         if (!response) reject("Something Went Wrong");
+//         else {
+//           // const User = response.data.data.user;
+//           resolve();
+//           setTimeout(() => {
+//             dispatch(logout());
+//             navigate("/");
+//           }, 1000);
+//         }
+//       } catch (error) {
+//         reject(error);
+//       }
+//     }),
+//     {
+//       loading: "Please Wait...",
+//       success: "Logged Out",
+//       error: "Something Went Wrong",
+//     }
+//   );
+// };
+
+/* Function to logout the user */
+// const handleLogout = async () => {
+//   try {
+//     dispatch(logout());
+//     await axios.post(
+//       "http://localhost:8000/api/user/logout",
+//       {},
+//       { withCredentials: true }
+//     );
+//   } catch (error) {}
+// };
+
+
+const dispatch = useDispatch();
+const navigate = useNavigate(); // Ensure navigate is imported from react-router-dom
+
+const handleLogout = () => {
+  toast.promise(
+    new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/user/logout",
+          {},
+          { withCredentials: true }
+        );
+
+        if (response.status === 200) {  // Check for a successful response status
+          resolve("Logged Out Successfully");
+          setTimeout(() => {
+            dispatch(logout());
+            navigate("/");
+          }, 1000);
+        } else {
+          reject("Something Went Wrong");
+        }
+      } catch (error) {
+        reject(error.response?.data?.message || "An error occurred during logout");
+      }
+    }),
+    {
+      loading: "Please Wait...",
+      success: "Logged Out",
+      error: "Something Went Wrong",
+    }
+  );
+};
+
+
   return (
     <div className={`fixed top-0 left-0 w-full z-50
     border-b border-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm ${openNavigation? "bg-n-8":"bg-n-8/90 backdrop:backdrop-blur-sm"}`}>
+       <Toaster />
         <div className='flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4'>
         <a className="flex items-center w-[12rem] xl:mr-8" href="#hero">
             <img src={DreamFundedLogo} style={{ width: '50px', height: '40px' }} alt="DreamFunded"/>
@@ -52,9 +143,31 @@ const Header = () => {
         <HamburgerMenu/>
      </nav>
 
-     <a href="/register" className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block">
+
+
+     {user ? (
+    <Button className="hidden lg:flex"  onClick={handleLogout}>
+        Sign out
+    </Button>
+) : (
+    <>
+        <a
+            href="/register"
+            className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block"
+        >
+            New account
+        </a>
+        <Button className="hidden lg:flex" href="/login">
+            Sign in
+        </Button>
+    </>
+)}
+
+
+
+     {/* <a href="/register" className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block">
      New account</a>
-     <Button className="hidden lg:flex" href="/login">Sign in</Button>
+     <Button className="hidden lg:flex" href="/login">Sign in</Button> */}
 
      <Button className="ml-auto lg:hidden" px="px-3" onClick={toggleNavigation}>
       <MenuSvg openNavigation={openNavigation}/>
