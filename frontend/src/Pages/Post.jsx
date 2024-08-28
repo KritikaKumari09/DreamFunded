@@ -17,7 +17,7 @@ const Post = () => {
   return (
     <>
 
-     <div className="flex justify-center pt-8"> <Button className="  h-12 text-lg font-semibold" href="/">
+     <div className="flex justify-center pt-9"> <Button className="  h-12 text-lg font-semibold" href="/">
            Back to home page
         </Button></div> 
 
