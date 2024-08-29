@@ -188,6 +188,7 @@ import { Link } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import Button from "../components/Button";
 import ButtonGradient from "../assets/svg/ButtonGradient";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const inputRef = useRef(null);
@@ -198,6 +199,7 @@ const SignUp = () => {
   const [isUsernameAvailable, setIsUsernameAvailable] = useState(false);
   const [message, setMessage] = useState(null);
   const [timer, setTimer] = useState(null);
+  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -257,7 +259,7 @@ const SignUp = () => {
       new Promise(async (res, rej) => {
         try {
           const response = await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/api/user/register`,
+            "http://localhost:8000/api/user/register",
             {
               username,
               email,
@@ -267,7 +269,7 @@ const SignUp = () => {
             { withCredentials: true }
           );
           console.log(response)
-          res("Success buddy");
+          res("Registered successfully");
         } catch (error) {
           rej(error.response.data.message);
         }
