@@ -44,7 +44,7 @@ const Forget = () => {
             <input
               type="text"
               placeholder="Username or email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+              className="w-full text-black px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
               onChange={(e) => setUsername(e.target.value)}
             />
             <Button
