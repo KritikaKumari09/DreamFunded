@@ -35,50 +35,6 @@ const Header = () => {
     setOpenNavigation(false)
   }
 
-// const navigate=useNavigate();
-//   const dispatch = useDispatch();
-
-// const handleLogout = () => {
-//   toast.promise(
-//     new Promise(async (resolve, reject) => {
-//       try {
-//         const response = await axios.post(
-//           "http://localhost:8000/api/user/logout",
-//           {},
-//           { withCredentials: true }
-//         );
-//         if (!response) reject("Something Went Wrong");
-//         else {
-//           // const User = response.data.data.user;
-//           resolve();
-//           setTimeout(() => {
-//             dispatch(logout());
-//             navigate("/");
-//           }, 1000);
-//         }
-//       } catch (error) {
-//         reject(error);
-//       }
-//     }),
-//     {
-//       loading: "Please Wait...",
-//       success: "Logged Out",
-//       error: "Something Went Wrong",
-//     }
-//   );
-// };
-
-/* Function to logout the user */
-// const handleLogout = async () => {
-//   try {
-//     dispatch(logout());
-//     await axios.post(
-//       "http://localhost:8000/api/user/logout",
-//       {},
-//       { withCredentials: true }
-//     );
-//   } catch (error) {}
-// };
 
 
 const dispatch = useDispatch();
@@ -129,15 +85,41 @@ const handleLogout = () => {
      <nav className={`${openNavigation? "flex":"hidden"} fixed top-[5rem] left-0 right-0 bottom-0 bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}>
         <div className="relative z-2 flex flex-col items-center justify-center
          m-auto lg:flex-row">
-           {navigation.map((item)=>(
+            {navigation.map((item)=>(
+              user?(
+                item.id !=="4" && item.id !=="5" && item.id !=="6" ?(<a key={item.id} href={item.url} onClick={handleClick}
+                  className={`block relative font-code text-2xl uppercase *:text-n-1
+                    transition-colors hover:text-n-1 ${item.onlyMobile?'lg:hidden' : ''}
+                    px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold
+                    ${item.url=== pathname.hash ? "z-2 lg:text-n-1" : "lg:text-n-1/50"}
+                    lg:leading-5 lg:hover-text-n-1 xl:px-12`}>
+                    
+      
+                     {item.title} 
+                    </a>):(item.id !=="4" && item.id !=="5" &&
+                      <a key={item.id} href={item.url} onClick={handleLogout}
+                      className={`block relative font-code text-2xl uppercase *:text-n-1
+                        transition-colors hover:text-n-1 ${item.onlyMobile?'lg:hidden' : ''}
+                        px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold
+                        cursor-pointer
+                        lg:leading-5 lg:hover-text-n-1 xl:px-12`}>
+                        
+          
+                         {item.title} 
+                        </a>
+                    )
+              ):( item.id!=="6"&&
             <a key={item.id} href={item.url} onClick={handleClick}
             className={`block relative font-code text-2xl uppercase *:text-n-1
               transition-colors hover:text-n-1 ${item.onlyMobile?'lg:hidden' : ''}
               px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold
               ${item.url=== pathname.hash ? "z-2 lg:text-n-1" : "lg:text-n-1/50"}
               lg:leading-5 lg:hover-text-n-1 xl:px-12`}>
-                {item.title}
+              
+
+               {item.title} 
               </a>
+            )
            ))}
         </div>
         <HamburgerMenu/>

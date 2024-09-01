@@ -48,6 +48,12 @@ import {
       url: "/login",
       onlyMobile: true,
     },
+    {
+      id: "6",
+      title: "Sign out",
+      // url: "/",
+      onlyMobile: true,
+    },
   ];
   
   export const heroIcons = [homeSmile, file02, searchMd, plusSquare];
