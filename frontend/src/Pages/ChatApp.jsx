@@ -14,6 +14,7 @@ import RecievedBox from "../components/RecievedBox.jsx";
 import { addMessage, setGroup, removeChat } from "../store/userSlice.js";
 import recieveAudio from "../assets/recieve.mp3";
 import backLogo from "../../src/assets/arrow-left-solid.svg";
+import toast, { Toaster } from "react-hot-toast";
 
 const ChatApp = () => {
   let result = useLoaderData();
@@ -126,19 +127,53 @@ const ChatApp = () => {
   };
 
   /* Function to logout the user */
-  const handleLogout = async () => {
-    try {
-      dispatch(logout());
-      await axios.post(
-        "http://localhost:8000/api/user/logout",
-        {},
-        { withCredentials: true }
-      );
-    } catch (error) {}
-  };
+  // const handleLogout = async () => {
+  //   try {
+  //     dispatch(logout());
+  //     await axios.post(
+  //       "http://localhost:8000/api/user/logout",
+  //       {},
+  //       { withCredentials: true }
+  //     );
+  //   } catch (error) {}
+  // };
+
+
+  
+const handleLogout = () => {
+  toast.promise(
+    new Promise(async (resolve, reject) => {
+      try {
+        const response = await axios.post(
+          "http://localhost:8000/api/user/logout",
+          {},
+          { withCredentials: true }
+        );
+
+        if (response.status === 200) {  // Check for a successful response status
+          resolve("Logged Out Successfully");
+          setTimeout(() => {
+            dispatch(logout());
+            navigate("/");
+          }, 1000);
+        } else {
+          reject("Something Went Wrong");
+        }
+      } catch (error) {
+        reject(error.response?.data?.message || "An error occurred during logout");
+      }
+    }),
+    {
+      loading: "Please Wait...",
+      success: "Logged Out",
+      error: "Something Went Wrong",
+    }
+  );
+};
 
   return (
     <>
+    <Toaster />
     <div
     className={
       isDrawerOpen
