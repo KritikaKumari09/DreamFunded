@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 import { toggleDrawer } from "../store/userSlice.js";
 import sample from "../assets/images.png";
 import "./Component.css";
-
+import DreamFundedLogo from "../assets/DreamFunded-Logo.png"
+ 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -13,16 +14,15 @@ const Navbar = () => {
   };
   const isDrawerOpen = useSelector((state) => state.isOpen);
   const sliderRef = useRef(null);
-  const handleToggle = () => {
-    const html = document.querySelector("html");
-    const clases = html.classList;
-    if (clases[0] == "dark") {
-      html.classList.remove("dark");
-    } else html.classList.add("dark");
-  };
+
   return (
     <div className="flex justify-between sm:justify-around bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 top-0 sticky z-50">
-      <h2 className="ml-2">Logo</h2>
+      {/* <h2 className="ml-2">Logo</h2> */}
+      <div className="flex items-center ml-2">
+    <img src={DreamFundedLogo} style={{ width: '50px', height: '40px' }} alt="DreamFunded" />
+    <p className="ml-4 text-2xl">DreamFunded</p>
+  </div>
+
       <div className="sm:grid hidden ">
         <ul className="flex justify-center items-center gap-10">
           <NavLink
@@ -53,16 +53,12 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="flex gap-4 items-center">
-        {/* <label class="switch">
-          <input type="checkbox" ref={sliderRef} onChange={handleToggle} />
-          <span class="slider round"></span>
-        </label> */}
-        {/* <button onClick={handleToggle}>Switch</button> */}
-        {/* <img
+       
+        <img
           src={user?.avatarImage || sample}
           alt="profile img"
           className="h-8 rounded-[50%] w-8"
-        /> */}
+        />
         {!isDrawerOpen ? (
           <div className="w-10 sm:hidden" onClick={handleDrawer}>
             <div className="border-b-2 border-black w-6 h-2 dark:border-white"></div>

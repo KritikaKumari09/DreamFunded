@@ -54,6 +54,12 @@ import {
       // url: "/",
       onlyMobile: true,
     },
+    {
+      id: "7",
+      title: "My Account",
+      // url: "/",
+      onlyMobile: true,
+    },
   ];
   
   export const heroIcons = [homeSmile, file02, searchMd, plusSquare];

@@ -9,6 +9,8 @@ import {useState} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {logout} from "../store/userSlice.js"
 import toast, { Toaster } from "react-hot-toast";
+import sample from "../assets/images.png";
+import { Link } from "react-router-dom"
 
 import axios from "axios"
 
@@ -126,7 +128,7 @@ const handleLogout = () => {
      </nav>
 
 
-
+{/* <div className="flex">
      {user ? (
     <Button className="hidden lg:flex"  onClick={handleLogout}>
         Sign out
@@ -145,11 +147,72 @@ const handleLogout = () => {
     </>
 )}
 
+{user ? (
+     <img
+     src={user?.avatarImage || sample}
+     alt="profile img"
+     className="h-8 rounded-[50%] w-8 flex"
+   />
+) : (
+    <>
+        
+    </>
+)}
+ 
+ </div> */}
+
+<div className="flex items-center">
+  {user ? (
+    <Button className="hidden lg:flex" onClick={handleLogout}>
+      Sign out
+    </Button>
+  ) : (
+    <>
+      <a
+        href="/register"
+        className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block"
+      >
+        New account
+      </a>
+      <Button className="hidden lg:flex" href="/login">
+        Sign in
+      </Button>
+    </>
+  )}
+
+  {user ? (
+<>
+<div className="relative group hidden lg:flex">
+  <Link to="/myprofile" className="text-white cursor-pointer" data-tooltip-target="tooltip-default">
+    <img
+      src={user?.avatarImage || sample}
+      alt="profile img"
+      className="h-8 rounded-[50%] w-8 ml-6"
+    />
+  </Link>
+  <div className="absolute z-10 left-1/2 transform -translate-x-1/2 top-full mt-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+    My Account
+    <div className="tooltip-arrow" data-popper-arrow></div>
+  </div>
+</div>
+
+<div id="tooltip-default" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+  My Account
+  <div className="tooltip-arrow" data-popper-arrow></div>
+</div>
+</>
+  ) : (
+    <>
+    </>
+  )}
 
 
-     {/* <a href="/register" className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block">
-     New account</a>
-     <Button className="hidden lg:flex" href="/login">Sign in</Button> */}
+
+</div>
+
+
+
+    
 
      <Button className="ml-auto lg:hidden" px="px-3" onClick={toggleNavigation}>
       <MenuSvg openNavigation={openNavigation}/>
