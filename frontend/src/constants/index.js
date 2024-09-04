@@ -50,16 +50,17 @@ import {
     },
     {
       id: "6",
-      title: "Sign out",
-      // url: "/",
+      title: "My Account",
+      url: "/myprofile",
       onlyMobile: true,
     },
     {
       id: "7",
-      title: "My Account",
+      title: "Sign out",
       // url: "/",
       onlyMobile: true,
     },
+   
   ];
   
   export const heroIcons = [homeSmile, file02, searchMd, plusSquare];

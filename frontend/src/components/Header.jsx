@@ -89,7 +89,7 @@ const handleLogout = () => {
          m-auto lg:flex-row">
             {navigation.map((item)=>(
               user?(
-                item.id !=="4" && item.id !=="5" && item.id !=="6" ?(<a key={item.id} href={item.url} onClick={handleClick}
+                item.id !=="4" && item.id !=="5" && item.id !=="6" && item.id !=="7" ?(<a key={item.id} href={item.url} onClick={handleClick}
                   className={`block relative font-code text-2xl uppercase *:text-n-1
                     transition-colors hover:text-n-1 ${item.onlyMobile?'lg:hidden' : ''}
                     px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold
@@ -98,19 +98,26 @@ const handleLogout = () => {
                     
       
                      {item.title} 
-                    </a>):(item.id !=="4" && item.id !=="5" &&
-                      <a key={item.id} href={item.url} onClick={handleLogout}
-                      className={`block relative font-code text-2xl uppercase *:text-n-1
-                        transition-colors hover:text-n-1 ${item.onlyMobile?'lg:hidden' : ''}
-                        px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold
-                        cursor-pointer
-                        lg:leading-5 lg:hover-text-n-1 xl:px-12`}>
+                    </a>):( (item.id ==="6" || item.id==="7") &&
+                      <a key={item.id} href={item.url} onClick={item.id==="6"? handleClick:handleLogout}
+              
+              className={
+                `block relative font-code text-2xl uppercase *:text-n-1 transition-colors 
+                hover:text-n-1 ${item.onlyMobile ? 'lg:hidden' : ''} px-6 py-6 md:py-8 
+                lg:-mr-0.25 lg:text-xs lg:font-semibold cursor-pointer lg:leading-5 
+                lg:hover-text-n-1 xl:px-12` +
+                (item.id === "7"
+                  ? ""
+                  : ` ${item.url === pathname.hash ? "z-2 lg:text-n-1" : "lg:text-n-1/50"}`)
+              }
+              
+              >
                         
           
                          {item.title} 
                         </a>
                     )
-              ):( item.id!=="6"&&
+              ):( item.id!=="6" && item.id!=="7"&&
             <a key={item.id} href={item.url} onClick={handleClick}
             className={`block relative font-code text-2xl uppercase *:text-n-1
               transition-colors hover:text-n-1 ${item.onlyMobile?'lg:hidden' : ''}

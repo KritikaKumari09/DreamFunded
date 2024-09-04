@@ -15,6 +15,7 @@ import ChatApp from "./Pages/ChatApp.jsx";
 import HomePage from "./Pages/HomePage.jsx";
 import SignUp from "./Pages/SignUp.jsx";
 import Post from "./Pages/Post.jsx";
+import MyAccount from "./components/MyAccount.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
         path: "",
         element: <HomePage />,
       },
-      
+     
     ],
   },
   {
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
     path: "/register",
     element: <SignUp />,
   },
+  {
+    path: "/myprofile",
+    element: <MyAccount />,
+  },
+  
   {
     path: "/forget",
     element: <Forget />,
