@@ -5,6 +5,7 @@ import { toggleDrawer } from "../store/userSlice.js";
 import sample from "../assets/images.png";
 import "./Component.css";
 import DreamFundedLogo from "../assets/DreamFunded-Logo.png"
+import { Link } from "react-router-dom";
  
 const Navbar = () => {
   const user = useSelector((state) => state.user);
@@ -16,10 +17,10 @@ const Navbar = () => {
   const sliderRef = useRef(null);
 
   return (
-    <div className="flex justify-between sm:justify-around bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 top-0 sticky z-50">
+    <div className="flex justify-between  bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 top-0 sticky z-50">
       {/* <h2 className="ml-2">Logo</h2> */}
-      <div className="flex items-center ml-2">
-    <img src={DreamFundedLogo} style={{ width: '50px', height: '40px' }} alt="DreamFunded" />
+      <div className="flex  items-center ml-2">
+    <img  className="ml-2" src={DreamFundedLogo} style={{ width: '50px', height: '40px' }} alt="DreamFunded" />
     <p className="ml-4 text-2xl">DreamFunded</p>
   </div>
 
@@ -41,7 +42,7 @@ const Navbar = () => {
           >
             Add a Project
           </NavLink>
-          <li>My Projects</li>
+        
           <NavLink
             to={"/chat"}
             className={({ isActive }) => {
@@ -50,15 +51,43 @@ const Navbar = () => {
           >
             Chat
           </NavLink>
+         
         </ul>
       </div>
       <div className="flex gap-4 items-center">
        
-        <img
+        {/* <img
           src={user?.avatarImage || sample}
           alt="profile img"
-          className="h-8 rounded-[50%] w-8"
-        />
+          className="h-8 mr-4 rounded-[50%] w-8"
+        /> */}
+
+{user ? (
+<>
+<div className="relative group hidden lg:flex mr-4">
+  <Link to="/myprofile" className="text-white cursor-pointer" data-tooltip-target="tooltip-default">
+    <img
+      src={user?.avatarImage || sample}
+      alt="profile img"
+      className="h-8 rounded-[50%] w-8 ml-6"
+    />
+  </Link>
+  <div className="absolute z-10 left-1/2 transform -translate-x-1/2 top-full mt-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2">
+    My Account
+    <div className="tooltip-arrow" data-popper-arrow></div>
+  </div>
+</div>
+
+<div id="tooltip-default" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+  My Account
+  <div className="tooltip-arrow" data-popper-arrow></div>
+</div>
+</>
+  ) : (
+    <>
+    </>
+  )}
+
         {!isDrawerOpen ? (
           <div className="w-10 sm:hidden" onClick={handleDrawer}>
             <div className="border-b-2 border-black w-6 h-2 dark:border-white"></div>

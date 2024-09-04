@@ -207,7 +207,20 @@ const handleLogout = () => {
       >
         Chat
       </NavLink>
+      {user ? (
+      <NavLink
+      to={"/myprofile"}
+      className={({ isActive }) => {
+        return isActive ? "font-semibold text-orange-500" : "";
+      }}
+    >
+      My Account
+    </NavLink>
+    ) : (
+     <></>
+    )}
     </ul>
+    
     {user ? (
       <button
         className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white"
