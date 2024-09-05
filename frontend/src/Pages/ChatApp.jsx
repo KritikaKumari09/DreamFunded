@@ -15,6 +15,7 @@ import { addMessage, setGroup, removeChat } from "../store/userSlice.js";
 import recieveAudio from "../assets/recieve.mp3";
 import backLogo from "../../src/assets/arrow-left-solid.svg";
 import toast, { Toaster } from "react-hot-toast";
+import sample from "../assets/images.png"
 
 const ChatApp = () => {
   let result = useLoaderData();
@@ -228,7 +229,7 @@ const handleLogout = () => {
         <div className={`w-full sm:w-80 lg:w-96 ${chat ? 'hidden sm:block' : ''} bg-[#1a1a1a] dark:bg-[#1f1f1f] overflow-y-auto flex-shrink-0`}>
           <div className="h-20 flex items-center px-4 gap-2 text-white">
             <img
-              src={user?.avatarImage}
+              src={user?.avatarImage || sample}
               alt="user_img"
               className="rounded-full h-12 w-12"
             />

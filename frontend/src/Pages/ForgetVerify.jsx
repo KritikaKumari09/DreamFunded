@@ -3,6 +3,8 @@ import { Link, redirect, useNavigate, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import "./Login.css";
+import Button from "../components/Button";
+import ButtonGradient from "../assets/svg/ButtonGradient"; 
 
 const ForgetVerify = () => {
   const navigate = useNavigate();
@@ -82,56 +84,111 @@ const ForgetVerify = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center flex-col body h-[100vh]">
+    // <div className="flex justify-center items-center flex-col body h-[100vh]">
+    //   <Toaster toastOptions={{ duration: 1500 }} />
+    //   <div className="container h-[35vh] mt-0 border-r-2 shadow-md pt-12 flex flex-col items-center justify-center sm:w-96 w-[90vw] sm:h-[50vh]">
+    //     <div className="flex gap-4 items-center">
+    //       {otp.map((value, index) => {
+    //         return (
+    //           <input
+    //             key={index}
+    //             value={value}
+    //             type="text"
+    //             maxLength="1"
+    //             ref={(el) => (inputsRef.current[index] = el)}
+    //             className="border-black  h-10 w-10 rounded-md pl-2 outline-none text-center text-black"
+    //             onChange={(e) => handleChange(e.target.value, index)}
+    //             onKeyDown={(e) => handleKeyDown(e, index)}
+    //           />
+    //         );
+    //       })}
+    //     </div>
+    //     <div className="flex flex-col">
+    //       <input
+    //         type="password"
+    //         name="newPassword"
+    //         placeholder="new password"
+    //         className="mt-4 text-black border-black  h-10 w-56 rounded-md pl-2 outline-none"
+    //         onChange={(e) => setNewPassword(e.target.value)}
+    //       />
+    //       <input
+    //         type="password"
+    //         name="ConfirmNewPassword"
+    //         placeholder="confirm new password"
+    //         className="mt-4 text-black border-black  h-10 w-56 rounded-md pl-2 outline-none"
+    //         onChange={(e) => setConfirmNewPassword(e.target.value)}
+    //       />
+    //     </div>
+    //     <button
+    //       className="mt-8 bg-blue-500 px-4 py-2 text-black rounded-sm cursor-pointer"
+    //       onClick={handleClick}
+    //       disabled={isDisabled}
+    //     >
+    //       Verify
+    //     </button>
+    //   </div>
+    //   <div className="shadow-md container h-[8vh] mt-4 border-r-2 flex items-center justify-center w-[90vw] sm:w-96">
+    //     <p className="mr-2">Click here to </p>
+    //     <Link to={"/login"} className="text-blue-500 font-semibold">
+    //       Login
+    //     </Link>
+    //   </div>
+    // </div>
+
+     <div className="flex justify-center items-center min-h-screen ">
       <Toaster toastOptions={{ duration: 1500 }} />
-      <div className="container h-[35vh] mt-0 border-r-2 shadow-md pt-12 flex flex-col items-center justify-center sm:w-96 w-[90vw] sm:h-[50vh]">
-        <div className="flex gap-4 items-center">
-          {otp.map((value, index) => {
-            return (
+      <div className="bg-gray-950 rounded-lg shadow-lg p-8 w-full max-w-md border border-color-1">
+        <h2 className="text-2xl font-bold mb-6 text-center text-white">Verify OTP & Set New Password</h2>
+        <div className="mb-6">
+          <div className="flex justify-center gap-2">
+            {otp.map((value, index) => (
               <input
                 key={index}
                 value={value}
                 type="text"
                 maxLength="1"
                 ref={(el) => (inputsRef.current[index] = el)}
-                className="border-black  h-10 w-10 rounded-md pl-2 outline-none text-center"
+                className="w-12 h-12 border-2 border-gray-300 rounded-md text-center text-xl font-semibold text-gray-700 focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200"
                 onChange={(e) => handleChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
               />
-            );
-          })}
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col">
+        <div className="space-y-4">
           <input
             type="password"
             name="newPassword"
-            placeholder="new password"
-            className="mt-4 border-black  h-10 w-56 rounded-md pl-2 outline-none"
+            placeholder="New Password"
+            className="w-full text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <input
             type="password"
-            name="ConfirmNewPassword"
-            placeholder="confirm new password"
-            className="mt-4 border-black  h-10 w-56 rounded-md pl-2 outline-none"
+            name="confirmNewPassword"
+            placeholder="Confirm New Password"
+            className="w-full text-black px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
             onChange={(e) => setConfirmNewPassword(e.target.value)}
           />
         </div>
-        <button
-          className="mt-8 bg-blue-500 px-4 py-2 text-black rounded-sm cursor-pointer"
+        <Button
+          className="w-full mt-6  text-white py-2 rounded-md     focus:ring-opacity-50 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={handleClick}
+         
           disabled={isDisabled}
         >
           Verify
-        </button>
-      </div>
-      <div className="shadow-md container h-[8vh] mt-4 border-r-2 flex items-center justify-center w-[90vw] sm:w-96">
-        <p className="mr-2">Click here to </p>
-        <Link to={"/login"} className="text-blue-500 font-semibold">
-          Login
-        </Link>
+        </Button>
+        <ButtonGradient/>
+        <div className="mt-6 text-center">
+          <span className="text-gray-600">Click here to </span>
+          <Link to="/login" className="text-blue-600 hover:underline font-medium">
+            Login
+          </Link>
+        </div>
       </div>
     </div>
+
   );
 };
 
