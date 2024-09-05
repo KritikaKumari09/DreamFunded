@@ -185,34 +185,21 @@ const handleLogout = () => {
     <ul className="flex justify-center items-center gap-6 flex-col mt-4">
       <NavLink
         to={"/"}
-        className={({ isActive, isPending }) =>
-          isActive ? "font-semibold text-orange-500" : ""
-        }
+       className="hover:text-orange-500"
       >
         Home
       </NavLink>
       <NavLink
         to={"/addProject"}
-        className={({ isActive, isPending }) =>
-          isActive ? "font-semibold text-orange-500" : ""
-        }
+        className="hover:text-orange-500"
       >
-        Add a Project
+        Start a Project
       </NavLink>
-      <NavLink
-        to={"/chat"}
-        className={({ isActive }) => {
-          return isActive ? "font-semibold text-orange-500" : "";
-        }}
-      >
-        Chat
-      </NavLink>
+      
       {user ? (
       <NavLink
       to={"/myprofile"}
-      className={({ isActive }) => {
-        return isActive ? "font-semibold text-orange-500" : "";
-      }}
+      className="hover:text-orange-500"
     >
       My Account
     </NavLink>
@@ -223,13 +210,13 @@ const handleLogout = () => {
     
     {user ? (
       <button
-        className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white"
+        className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 hover:bg-yellow-300 w-20 rounded-sm bg-orange-600 text-white"
         onClick={handleLogout}
       >
         Logout
       </button>
     ) : (
-      <button className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 w-20 rounded-sm bg-orange-600 text-white">
+      <button className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 hover:bg-yellow-300 w-20 rounded-sm bg-orange-600 text-white">
         <NavLink to={"/login"}>Login</NavLink>
       </button>
     )}

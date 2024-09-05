@@ -28,29 +28,18 @@ const Navbar = () => {
         <ul className="flex justify-center items-center gap-10">
           <NavLink
             to={"/"}
-            className={({ isActive, isPending }) =>
-              isActive ? "font-semibold text-orange-500" : ""
-            }
+            className="hover:text-orange-500"
           >
             Home
           </NavLink>
           <NavLink
             to={"/addProject"}
-            className={({ isActive }) => {
-              return isActive ? "font-semibold text-orange-500" : "";
-            }}
+           className="hover:text-orange-500"
           >
-            Add a Project
+            Start a Project
           </NavLink>
         
-          <NavLink
-            to={"/chat"}
-            className={({ isActive }) => {
-              return isActive ? "font-semibold text-orange-500" : "";
-            }}
-          >
-            Chat
-          </NavLink>
+          
          
         </ul>
       </div>
@@ -84,8 +73,14 @@ const Navbar = () => {
 </div>
 </>
   ) : (
-    <>
-    </>
+    <div className="relative group hidden lg:flex mr-4">
+  
+    <img
+      src={ sample}
+      alt="profile img"
+      className="h-8 rounded-[50%] w-8 ml-6"
+    />
+    </div>
   )}
 
         {!isDrawerOpen ? (
