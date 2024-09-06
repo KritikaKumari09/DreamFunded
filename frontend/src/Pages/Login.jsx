@@ -76,11 +76,11 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="mt-6 bg-white shadow-md rounded-lg overflow-hidden border border-gray-300">
+        <div className="mt-6  shadow-md rounded-lg overflow-hidden  ">
           <div className="px-6 py-4 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-500">
               Don't have an account?{" "}
-              <Link to="/register" className="text-blue-500 font-semibold hover:underline">
+              <Link to="/register" className="text-cyan-500 font-semibold hover:underline">
                 Sign up
               </Link>
             </p>
