@@ -31,13 +31,14 @@ export const registerUser = async(req,res) =>{
             avatarImage,
             otp: generateOtp(),
             otpExpiry: Date.now() + 600000,
+            // 10 minutes is the expiry time
         })
 
         const response  = await newUser.save();
         if(!response){
             res.status(500).json(new ApiResponse('Failed to register user',{data: 'none', success: false}))
         }
-        await sendEmail({to: newUser.email,type: "verify",code :Number(newUser.otp)});
+        await sendEmail({to: newUser.email,type: "verify",code :Number(newUser.otp), userName:newUser.username});
         res.status(200).json(new ApiResponse('User Saved Successfully',{username: response.username,email: response.email, avatarImage: response.avatarImage,success: true}))
     } catch (error) {
         console.log('Unable to register User')
