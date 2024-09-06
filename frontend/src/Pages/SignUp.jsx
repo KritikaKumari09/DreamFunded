@@ -276,11 +276,10 @@ const SignUp = () => {
       }),
       {
         loading: "Please Wait ...",
-        success: (data)=>{return data},
-        error: (data) => {
-          return data;
-        },
-      }
+        success: "Your account has been created. Check your email for verification",
+        error: "Something Went Wrong",
+      },
+      
     );
   };
   return (
@@ -351,7 +350,7 @@ const SignUp = () => {
           </div>
         </div>
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-500">
             Already have an account?{" "}
             <Link to="/login" className="text-cyan-500 font-semibold hover:underline">
               Log In
