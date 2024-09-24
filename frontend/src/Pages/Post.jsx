@@ -1,11 +1,11 @@
-
-
-
 import React, { useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import ButtonGradient from "../assets/svg/ButtonGradient.jsx";
 import Header from '../components/Header.jsx';
 import Button from "../components/Button.jsx";
+import axios from 'axios'
+import { useSelector } from "react-redux";
+import { Toaster,toast } from "react-hot-toast";
 
 const Post = () => {
   const editor = useRef(null);
@@ -13,13 +13,50 @@ const Post = () => {
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState(new Date().toISOString().split('T')[0]);
   const [fund, setFund] = useState("");
+  const user = useSelector((state)=>state.user)
 
-  const submitProject = () =>{
-    console.log(deadline)
+  const submitProject = async() =>{
+    try {
+      
+      /* Validating Fields Before Submitting */
+      const validations = [
+        { field: 'title', value: title, message: 'Project title is required' },
+        { field: 'owner', value: user?._id, message: 'Please Sign-in to add Project' },
+        { field: 'description', value: content, message: 'Please provide a description of your project' },
+        { field: 'deadline', value: deadline, message: 'Deadline is a required field' },
+        { field: 'totalFundsRequired', value: fund, message: 'Please provide total funds required' }
+      ];
+
+      for(const check of validations){
+        if(!check.value){
+          return toast.error(check.message);
+        }
+      }
+
+      const response = await axios.post('http://localhost:8000/api/project/addProject',
+        {
+          name: title,
+          owner: user?._id,
+          description: content,
+          deadline,
+          totalFundsRequired: fund
+        }
+      )
+      toast.success('Project added Successfully')
+
+      /* Clearing fields for further use */
+      setContent("");
+      setTitle("");
+      setDeadline(new Date().toISOString().split('T')[0]);
+      setFund("")
+
+    } catch (error) {
+      toast.error("Failed to add Project")
+    }
   }
   return (
     <>
-
+     <Toaster position="top-center"/>
      <div className="flex justify-center pt-9"> <Button className="  h-12 text-lg font-semibold" href="/">
            Back to home page
         </Button></div> 
