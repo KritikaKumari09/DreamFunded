@@ -24,7 +24,7 @@ const projectSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    TotalFundsRequired: {
+    totalFundsRequired: {
       type: Number,
       required: true,
     },
