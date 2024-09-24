@@ -14,14 +14,15 @@ const Post = () => {
   const [deadline, setDeadline] = useState(new Date().toISOString().split('T')[0]);
   const [fund, setFund] = useState("");
 
+  const submitProject = () =>{
+    console.log(deadline)
+  }
   return (
     <>
 
      <div className="flex justify-center pt-9"> <Button className="  h-12 text-lg font-semibold" href="/">
            Back to home page
         </Button></div> 
-
-
 
     <div className="min-h-screen flex items-center justify-center py-10  px-4 sm:px-6 lg:px-8 text-gray-700">
       <div className="max-w-4xl w-full space-y-8 bg-gray-950 p-10  rounded-xl shadow-lg border border-color-1">
@@ -78,7 +79,7 @@ const Post = () => {
                 placeholder="Enter amount"
               />
             </div>
-            <Button className="w-full h-12 text-lg font-semibold">
+            <Button className="w-full h-12 text-lg font-semibold" onClick={submitProject}>
               Upload Project
             </Button>
             <ButtonGradient className="w-full h-12" />

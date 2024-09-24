@@ -20,21 +20,21 @@ const Navbar = () => {
     <div className="flex justify-between  bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 top-0 sticky z-50">
       {/* <h2 className="ml-2">Logo</h2> */}
       <div className="flex  items-center ml-2">
-    <img  className="ml-2" src={DreamFundedLogo} style={{ width: '50px', height: '40px' }} alt="DreamFunded" />
-    <p className="ml-4 text-2xl">DreamFunded</p>
+    <img  className="ml-2" src={DreamFundedLogo} style={{ width: '35px', height: '35px' }} alt="DreamFunded" />
+    <p className="ml-4 text-xl font-sans">DreamFunded</p>
   </div>
 
       <div className="sm:grid hidden ">
         <ul className="flex justify-center items-center gap-10">
           <NavLink
             to={"/"}
-            className="hover:text-orange-500"
+            className="hover:text-orange-500 text-sm transition-colors"
           >
             Home
           </NavLink>
           <NavLink
             to={"/addProject"}
-           className="hover:text-orange-500"
+           className="hover:text-orange-500 text-sm transition-colors"
           >
             Start a Project
           </NavLink>
