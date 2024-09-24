@@ -2,6 +2,7 @@ import express , {response} from 'express'
 import dotenv from "dotenv"
 import cors from 'cors'
 import userRouter from './routes/userRoute.js'
+import projectRouter from './routes/projectRoute.js'
 import chatRouter from './routes/chatRoute.js'
 import paymentRouter from './routes/paymentRoute.js'
 import connectDB from './db/index.js'
@@ -61,6 +62,7 @@ app.use(cookieParser())
 //routes
 app.use('/api/user',userRouter)
 app.use('/api/chat',chatRouter)
+app.use('/api/project',projectRouter)
 app.use('/api/payment',paymentRouter)
 
 // below we are creating route
