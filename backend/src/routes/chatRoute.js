@@ -12,7 +12,7 @@ import { groupAuth } from "../middlewares/groupAuth.middleware.js";
 
 const router = Router();
 
-router.post("/create", makeGroup);
+router.post("/create",upload.none(),makeGroup);
 router.post("/join", verifyJWT, joinGroup);
 router.post("/sendMessage", verifyJWT, groupAuth, sendMessage);
 router.get("/getAllGroups", verifyJWT, getUserGroups);

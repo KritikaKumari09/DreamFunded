@@ -3,11 +3,12 @@ import { Chat } from "../../models/chat.Schema.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { ChatMessage } from "../../models/chatMessage.Schema.js";
 
+/* Create Group Controller */
 const makeGroup = async function (req, res) {
   const { name, admin } = req.body;
   if (!name)
-    res.status(401).json(new ApiResponse("Please Provide a group Name"));
-  if (!admin) res.status(401).json(new ApiResponse("Please add admin"));
+    return res.status(401).json(new ApiResponse("Please Provide a group Name"));
+  if (!admin) return res.status(401).json(new ApiResponse("Please add admin"));
   const adminId = new mongoose.Types.ObjectId(admin);
   const newGrp = new Chat({
     admin: adminId,
@@ -20,6 +21,7 @@ const makeGroup = async function (req, res) {
     .json(new ApiResponse("Group Created Successfully", { data: newGrp }));
 };
 
+/* Join Group Controller */
 const joinGroup = async function (req, res) {
   const { groupId } = req.body;
   const id = req.user.id;
@@ -34,6 +36,7 @@ const joinGroup = async function (req, res) {
   return res.status(200).json(new ApiResponse("Added to Group SuccessFully",{sucess: true}))
 };
 
+/* Send Message Controller */
 const sendMessage = async(req,res) =>{
   const {message} = req.body;
   const {groupId} = req.body;
