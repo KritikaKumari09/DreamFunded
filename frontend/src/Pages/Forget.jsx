@@ -56,7 +56,7 @@ const Forget = () => {
             <ButtonGradient/>
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4">
+        <div className="  p-1">
           <div className="flex justify-center items-center">
             <p className="text-gray-600">Remember your password?</p>
             <Link to="/login" className="ml-2 text-blue-500 font-semibold hover:underline">
