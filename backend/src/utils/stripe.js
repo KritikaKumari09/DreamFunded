@@ -3,6 +3,7 @@ import {Stripe} from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_API_KEY)
 
 export const handleCheckout = async (req,res)=>{
+    console.log('Hii')
     const product = await stripe.products.create({
         name: "Shoes",
     })
@@ -12,6 +13,7 @@ export const handleCheckout = async (req,res)=>{
         currency: 'usd'
     })
     const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'] ,
         line_items: [
             {
                 price: price.id,
