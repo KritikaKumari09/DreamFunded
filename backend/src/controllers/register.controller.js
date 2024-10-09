@@ -9,10 +9,15 @@ export const registerUser = async(req,res) =>{
     try {
         const {username, email, password} = req.body
         if(!username || !email || !password)return res.status(200).json(new ApiResponse('username, email & password is required',{success: false}))
-        const existingUser = await User.findOne({
+            const existingUsername = await User.findOne({
+                username: username    
+          })
+          if(existingUsername) return res.status(400).json(new ApiResponse('Username already in use',{success: false}))
+       
+            const existingUser = await User.findOne({
               email: email    
         })
-        if(existingUser) return res.status(400).json(new ApiResponse('Email already in Use',{success: false}))
+        if(existingUser) return res.status(400).json(new ApiResponse('Email already in use',{success: false}))
         let avatarImage = "";
         if(req.file){
             const response = await uploadOnCloudinary(req.file.path);
