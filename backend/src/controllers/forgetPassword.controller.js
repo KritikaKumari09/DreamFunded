@@ -52,7 +52,7 @@ export async function forgetPasswordVerifyAndSetNewPassword(req, res) {
     const isOtpCorrect = existingUser.forgetPasswordOtp === otp;
     if (!isOtpCorrect)
       return res
-        .status(200)
+        .status(200) // here 200 status given so that invalid otp is message display or else its not displayed rather axios error is displayed in output screen if we give status code 300 or above
         .json(new ApiResponse("Invalid Otp", { success: false }));
     const currDate = new Date(Date.now());
     const isOtpValid = existingUser.forgetPasswordOtpExpiry > currDate;
