@@ -53,7 +53,7 @@ const ForgetVerify = () => {
       }),
       {
         loading: "Please Wait...",
-        success: <b>Password Changed Successfully</b>,
+        success: "Password Changed Successfully",
         error: (err) => `${err}`,
       }
     );
@@ -84,56 +84,7 @@ const ForgetVerify = () => {
     }
   };
   return (
-    // <div className="flex justify-center items-center flex-col body h-[100vh]">
-    //   <Toaster toastOptions={{ duration: 1500 }} />
-    //   <div className="container h-[35vh] mt-0 border-r-2 shadow-md pt-12 flex flex-col items-center justify-center sm:w-96 w-[90vw] sm:h-[50vh]">
-    //     <div className="flex gap-4 items-center">
-    //       {otp.map((value, index) => {
-    //         return (
-    //           <input
-    //             key={index}
-    //             value={value}
-    //             type="text"
-    //             maxLength="1"
-    //             ref={(el) => (inputsRef.current[index] = el)}
-    //             className="border-black  h-10 w-10 rounded-md pl-2 outline-none text-center text-black"
-    //             onChange={(e) => handleChange(e.target.value, index)}
-    //             onKeyDown={(e) => handleKeyDown(e, index)}
-    //           />
-    //         );
-    //       })}
-    //     </div>
-    //     <div className="flex flex-col">
-    //       <input
-    //         type="password"
-    //         name="newPassword"
-    //         placeholder="new password"
-    //         className="mt-4 text-black border-black  h-10 w-56 rounded-md pl-2 outline-none"
-    //         onChange={(e) => setNewPassword(e.target.value)}
-    //       />
-    //       <input
-    //         type="password"
-    //         name="ConfirmNewPassword"
-    //         placeholder="confirm new password"
-    //         className="mt-4 text-black border-black  h-10 w-56 rounded-md pl-2 outline-none"
-    //         onChange={(e) => setConfirmNewPassword(e.target.value)}
-    //       />
-    //     </div>
-    //     <button
-    //       className="mt-8 bg-blue-500 px-4 py-2 text-black rounded-sm cursor-pointer"
-    //       onClick={handleClick}
-    //       disabled={isDisabled}
-    //     >
-    //       Verify
-    //     </button>
-    //   </div>
-    //   <div className="shadow-md container h-[8vh] mt-4 border-r-2 flex items-center justify-center w-[90vw] sm:w-96">
-    //     <p className="mr-2">Click here to </p>
-    //     <Link to={"/login"} className="text-blue-500 font-semibold">
-    //       Login
-    //     </Link>
-    //   </div>
-    // </div>
+   
 
      <div className="flex justify-center items-center min-h-screen ">
       <Toaster toastOptions={{ duration: 1500 }} />
