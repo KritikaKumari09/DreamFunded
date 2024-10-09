@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import axios from "axios";
 import Forget from "./Pages/Forget.jsx";
 import ForgetVerify from "./Pages/ForgetVerify.jsx";
+import EmailVerififcationPage from "./Pages/EmailVerififcationPage.jsx";
 import ProtectedRoute from "./middleware/protectedRoute.jsx";
 import ChatApp from "./Pages/ChatApp.jsx";
 import HomePage from "./Pages/HomePage.jsx";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/forget/:id/verify",
     element: <ForgetVerify></ForgetVerify>,
+  },
+  {
+    path:"/verifyEmail/:id",
+    element:<EmailVerififcationPage/>
   },
   {
     path: "chat",
