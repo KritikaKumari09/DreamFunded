@@ -217,18 +217,21 @@ const SignUp = () => {
     }
   };
 
-  const handleUpload = async () => {
-    try {
-      const data = await axios.post(
-        "http://localhost:8000/",
-        { url: image },
-        { withCredentials: true }
-      );
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleUpload = async () => {
+  //   try {
+  //     const data = await axios.post(
+  //       "http://localhost:8000/",
+  //       { url: image },
+  //       { withCredentials: true }
+  //     );
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  
+  
 
   const handleImageClick = () => {
     inputRef.current.click();
@@ -254,9 +257,11 @@ const SignUp = () => {
     };
   }, [username]);
 
+ 
+  
   const handleSubmit = () => {
     toast.promise(
-      new Promise(async (res, rej) => {
+      new Promise(async (resolve, reject) => {
         try {
           const response = await axios.post(
             "http://localhost:8000/api/user/register",
@@ -268,20 +273,31 @@ const SignUp = () => {
             },
             { withCredentials: true }
           );
-          console.log(response)
-          res("Registered successfully");
+          console.log(response);
+          resolve();  // Resolve on success to trigger success toast
+          navigate(`/verifyEmail/${username}`);  // Navigate to email verification page
         } catch (error) {
-          rej(error.response.data.message);
+          // Catch errors and handle them correctly
+          if (error.response) {
+            // Server responded with an error (4xx or 5xx)
+            reject(error.response.data.message || "Something went wrong"); // Pass the API error message
+          } else {
+            // Network or other errors
+            reject("Network error or server is unreachable");
+          }
         }
       }),
       {
-        loading: "Please Wait ...",
-        success: "Your account has been created. Check your email for verification",
-        error: "Something Went Wrong",
-      },
-      
+        loading: "Please Wait ...",  // Loading toast while the request is in progress
+        success: "Your account has been created. Check your email for verification",  // Success message on resolve
+        error: (err) => `${err}`,  // Show the error message from `reject` (custom server message)
+      }
     );
   };
+  
+
+  
+  
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
       <Toaster />
