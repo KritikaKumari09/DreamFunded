@@ -53,8 +53,8 @@ app.use(cors({
     credentials:true
 }))
 
-app.use(express.json())// accept data in json and form
-app.use(express.urlencoded({extended:true, limit:"16kb"}))// accept url  
+app.use(express.json({limit: '5mb'}))// accept data in json and form
+app.use(express.urlencoded({extended:true, limit: '50kb'}))// accept url  
 app.use(express.static("public"))// used to save some images, favicon if needed in public folder
 app.use(cookieParser())
 

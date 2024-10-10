@@ -238,6 +238,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
+    if(username=="")return;
     if (!timer) {
       clearTimeout(timer);
     }
@@ -263,14 +264,14 @@ const SignUp = () => {
     toast.promise(
       new Promise(async (resolve, reject) => {
         try {
+          const formData = new FormData();
+          formData.append('username', username);
+          formData.append('email', email);
+          formData.append('password', password);
+          formData.append('avatarImage', inputRef.current.files[0]);
           const response = await axios.post(
             "http://localhost:8000/api/user/register",
-            {
-              username,
-              email,
-              password,
-              avatarImage: image
-            },
+            formData,
             { withCredentials: true }
           );
           console.log(response);
