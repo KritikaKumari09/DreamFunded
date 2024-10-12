@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-easy-crop": "^5.0.8"
+    "react-easy-crop": "^5.0.8",
+    "zod": "^3.23.8"
   }
 }

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import "./Login.css";
+import {z} from "zod";
 import { useDispatch } from "react-redux";
 import { login } from "../store/userSlice.js";
 import Button from "../components/Button.jsx";
@@ -14,10 +15,24 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleClick = () => {
+  
+  //* Form Validation for login Schema
+  const loginSchema = z.object({
+    username: z.string(),
+    password: z.string().min(8,"Password Must contain 8 letters")
+  })
+  const handleLogin = () => {
     toast.promise(
       new Promise(async (resolve, reject) => {
         try {
+          const result = loginSchema.safeParse({
+            username: username,
+            password: password
+          })
+          if(result.success === false){
+            reject(result.error.issues[0].message);
+            return;
+          }
           const response = await axios.post(
             "http://localhost:8000/api/user/login",
             { username, password },
@@ -40,7 +55,7 @@ const Login = () => {
       {
         loading: "Please Wait...",
         success: "Logged In",
-        error: "Something Went Wrong",
+        error: (error)=> error||"Something Went Wrong",
       }
     );
   };
@@ -70,7 +85,7 @@ const Login = () => {
                   Forgot your password?
                 </Link>
               </div>
-              <Button onClick={handleClick} className="w-full">
+              <Button onClick={handleLogin} className="w-full">
                 Login
               </Button>
               <ButtonGradient className="w-full" />

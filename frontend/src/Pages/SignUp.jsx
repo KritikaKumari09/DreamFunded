@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { lazy, useEffect, useRef, useState } from "react";
 import sample from "../assets/images.png";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import ButtonGradient from "../assets/svg/ButtonGradient";
 import Cropper from 'react-easy-crop';
 import getCroppedImg from '../utils/getCroppedImage.js';
+import {z} from 'zod';
 
 const SignUp = () => {
   const inputRef = useRef(null);
@@ -25,10 +26,12 @@ const SignUp = () => {
   const [croppedImage, setCroppedImage] = useState(null); // * to store cropped image url
   const [croppedImageFile, seCroppedImageFile] = useState(null); // * to store cropped-image as File Object
 
+
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
+  //* when a file is change it converts FIleObject to image url
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -77,10 +80,26 @@ const SignUp = () => {
     };
   }, [username]);
 
+  //* Form validation Schema using zod
+  const registerSchema = z.object({
+    username: z.string(),
+    email: z.string().email(),
+    password: z.string().min(8, 'Password must contains 8 letters').regex(/[!@#$%^&*(),.?":{}|<>]/, "Password must contain at least one special character")
+  })
+  
   const handleSubmit = () => {
     toast.promise(
       new Promise(async (resolve, reject) => {
         try {
+          const result = registerSchema.safeParse({
+            username,
+            email,
+            password
+          })
+          if(result.success == false){
+            reject(result.error.issues[0].message);
+            return;
+          }
           const formData = new FormData();
           formData.append("username", username);
           formData.append("email", email);
@@ -94,6 +113,7 @@ const SignUp = () => {
           resolve();
           navigate(`/verifyEmail/${username}`);
         } catch (error) {
+          console.log(error)
           reject(
             error.response?.data?.message || "Network error or server is unreachable"
           );
