@@ -16,7 +16,8 @@ import ChatApp from "./Pages/ChatApp.jsx";
 import HomePage from "./Pages/HomePage.jsx";
 import SignUp from "./Pages/SignUp.jsx";
 import Post from "./Pages/Post.jsx";
-import MyAccount from "./components/MyAccount.jsx";
+import Project from "./Pages/Project.jsx"
+import MyAccount from "./Pages/MyAccount.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
   {
     path:"/verifyEmail/:id",
     element:<EmailVerififcationPage/>
+  },
+  {
+    path: '/projects',
+    element: <Project/>
   },
   {
     path: "chat",
