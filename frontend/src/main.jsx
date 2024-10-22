@@ -18,6 +18,7 @@ import SignUp from "./Pages/SignUp.jsx";
 import Post from "./Pages/Post.jsx";
 import Project from "./Pages/Project.jsx"
 import MyAccount from "./Pages/MyAccount.jsx";
+import ContactUs from "./Pages/ContactUs.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: '/projects',
     element: <Project/>
+  },
+  {
+    path: '/contact',
+    element: <ContactUs/>
   },
   {
     path: "chat",

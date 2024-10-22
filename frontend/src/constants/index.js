@@ -34,7 +34,7 @@ import {
     {
       id: "3",
       title: "Contact us ",
-      url: "#contact",
+      url: "contact",
     },
     {
       id: "4",
