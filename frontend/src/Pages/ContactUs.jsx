@@ -1,16 +1,53 @@
 "use client";
 import React, { useState } from "react";
 import Navbar from "../components/Navbar.jsx"
+import { NavLink } from "react-router-dom";
 import axios from "axios"
 import {Toaster, toast} from "react-hot-toast"
 // import { motion } from "framer-motion";
 import { BackgroundBeams } from "../components/ui/background-beams.jsx"; // Assuming BackgroundBeams is a separate component.
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/userSlice.js";
 
 const ContactUs = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
+  const user = useSelector((state)=>state.user)
+  const isDrawerOpen = useSelector((state)=>state.isOpen)
 
+  const handleLogout = () => {
+    toast.promise(
+      new Promise(async (resolve, reject) => {
+        try {
+          const response = await axios.post(
+            "http://localhost:8000/api/user/logout",
+            {},
+            { withCredentials: true }
+          );
+  
+          if (response.status === 200) {  // Check for a successful response status
+            resolve("Logged Out Successfully");
+            setTimeout(() => {
+              dispatch(logout());
+              navigate("/");
+            }, 1000);
+          } else {
+            reject("Something Went Wrong");
+          }
+        } catch (error) {
+          reject(error.response?.data?.message || "An error occurred during logout");
+        }
+      }),
+      {
+        loading: "Please Wait...",
+        success: "Logged Out",
+        error: "Something Went Wrong",
+      }
+    );
+  };
   const sendFeedback = async(e) =>{
     e.preventDefault();
     toast.promise(new Promise(async(res,rej)=>{
@@ -43,6 +80,53 @@ const ContactUs = () => {
   return (
     <div>
       <Toaster/>
+      <div
+    className={
+      isDrawerOpen
+        ? "absolute z-50 dark:text-white h-full  w-[60%] right-0 sm:hidden dark:bg-black top-14 overflow-hidden flex flex-col justify-between pb-20 items-center"
+        : "absolute z-50 text-white h-full  w-0 right-0 sm:hidden dark:bg-black top-14 overflow-hidden flex flex-col justify-between pb-20 items-center"
+    }
+    id="drawer"
+  >
+    <ul className="flex justify-center items-center gap-6 flex-col mt-4">
+      <NavLink
+        to={"/"}
+       className="hover:text-orange-500"
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to={"/addProject"}
+        className="hover:text-orange-500"
+      >
+        Start a Project
+      </NavLink>
+      
+      {user ? (
+      <NavLink
+      to={"/myprofile"}
+      className="hover:text-orange-500"
+    >
+      My Account
+    </NavLink>
+    ) : (
+     <></>
+    )}
+    </ul>
+    
+    {user ? (
+      <button
+        className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 hover:bg-yellow-300 w-20 rounded-sm bg-orange-600 text-white"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+    ) : (
+      <button className="mt-5 px-4 py-2 dark:text-black dark:bg-yellow-500 hover:bg-yellow-300 w-20 rounded-sm bg-orange-600 text-white">
+        <NavLink to={"/login"}>Login</NavLink>
+      </button>
+    )}
+  </div>
       <Navbar />
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
       {/* Background animation */}
