@@ -13,6 +13,7 @@ import { updateAccountDetails } from "./updateAccountDetails.controller.js";
 import { updateUserAvatar } from "./updateAvatar.controller.js";
 import { makeGroup,joinGroup,sendMessage } from "./chat/group.controller.js";
 import { getUserGroups,getAllMessages} from "./chat/getAllGroups.controller.js";
+import {getFeedback} from "./getFeedback.js";
 
 export {
   registerUser,
@@ -30,5 +31,6 @@ export {
   getUserGroups,
   joinGroup,
   sendMessage,
-  getAllMessages
+  getAllMessages,
+  getFeedback
 };

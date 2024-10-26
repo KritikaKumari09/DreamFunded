@@ -1,10 +1,49 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+import Navbar from "../components/Navbar.jsx"
+import axios from "axios"
+import {Toaster, toast} from "react-hot-toast"
 // import { motion } from "framer-motion";
 import { BackgroundBeams } from "../components/ui/background-beams.jsx"; // Assuming BackgroundBeams is a separate component.
 
 const ContactUs = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const sendFeedback = async(e) =>{
+    e.preventDefault();
+    toast.promise(new Promise(async(res,rej)=>{
+      try {
+        const data = {
+          name: name,
+          email: email,
+          message: message
+        }
+        const response = await axios.post('http://localhost:8000/api/user/feedback',data)
+        setName("")
+        setEmail("")
+        setMessage("")
+        console.log(response)
+        if(response.data.data.success)res(response.data.message)
+        else rej(response.data.message)
+      } catch (error) {
+        rej(error)
+        console.log(error)
+      }
+    }), 
+    {
+      loading: 'Loading...',
+      error: (err)=>err,
+      success: (res)=>res
+    }
+  )
+    
+  }
   return (
+    <div>
+      <Toaster/>
+      <Navbar />
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
       {/* Background animation */}
       <BackgroundBeams className="absolute inset-0" />
@@ -24,6 +63,8 @@ const ContactUs = () => {
             <input
               type="text"
               id="name"
+              value={name}
+              onChange={(e)=>setName(e.target.value)}
               className="w-full p-2 mt-1 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Your name"
             />
@@ -36,6 +77,8 @@ const ContactUs = () => {
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={e=>setEmail(e.target.value)}
               className="w-full p-2 mt-1 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Your email"
             />
@@ -48,6 +91,8 @@ const ContactUs = () => {
             <textarea
               id="message"
               rows="4"
+              value={message}
+              onChange={e=>setMessage(e.target.value)}
               className="w-full p-2 mt-1 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Your message"
             />
@@ -57,12 +102,14 @@ const ContactUs = () => {
             <button
               type="submit"
               className="px-6 py-2 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={sendFeedback}
             >
               Send Message
             </button>
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

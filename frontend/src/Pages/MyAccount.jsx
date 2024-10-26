@@ -87,7 +87,7 @@ const MyAccount = () => {
       <div className="mb-8">
         <h2 className="text-2xl font-bold mb-4">My Projects</h2>
         <ul className="space-y-4">
-  {createdProjects.map((project) => {
+  {createdProjects?.map((project) => {
     const fundsCollected = project.fundsCollected || 0; // Default to 0 if undefined
     const totalFundsRequired = project.totalFundsRequired || 1; // Avoid division by zero
     const percentage = Math.min((fundsCollected / totalFundsRequired) * 100, 100); // Calculate percentage, clamp to 100%

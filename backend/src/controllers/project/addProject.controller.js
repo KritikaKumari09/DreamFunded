@@ -17,7 +17,7 @@ const addProject = async(req, res) => {
  
  // * Alternative Way
  
- const validationRules = [
+    const validationRules = [
      { field: 'name', value: name, message: 'Project Name is Required' },
      { field: 'owner', value: owner, message: 'Project Owner is Required' },
      { field: 'description', value: description, message: 'Please provide a description of your project' },

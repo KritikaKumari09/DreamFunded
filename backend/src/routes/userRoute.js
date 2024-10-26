@@ -11,6 +11,7 @@ import {
   updateAccountDetails,
   updateUserAvatar,
   forgetPasswordVerifyAndSetNewPassword,
+  getFeedback
 } from "../controllers/index.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -34,4 +35,5 @@ router
   .patch(verifyJWT, upload.single("avatar"), updateUserAvatar);
 router.get("/forget/:id", forgetPasswordHandler);
 router.post("/forget/:id/verify", forgetPasswordVerifyAndSetNewPassword);
+router.post("/feedback",getFeedback)
 export default router;
