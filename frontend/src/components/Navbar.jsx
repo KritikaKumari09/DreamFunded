@@ -17,7 +17,7 @@ const Navbar = () => {
   const sliderRef = useRef(null);
 
   return (
-    <div className="flex justify-between  bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 top-0 sticky z-50">
+    <div className="flex justify-between w-full  bg-white items-center dark:bg-black dark:text-white sm:h-10 h-14 top-0 sticky z-50">
       {/* <h2 className="ml-2">Logo</h2> */}
       <div className="flex  items-center ml-2">
     <img  className="ml-2" src={DreamFundedLogo} style={{ width: '35px', height: '35px' }} alt="DreamFunded" />

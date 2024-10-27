@@ -19,6 +19,7 @@ import Post from "./Pages/Post.jsx";
 import Project from "./Pages/Project.jsx"
 import MyAccount from "./Pages/MyAccount.jsx";
 import ContactUs from "./Pages/ContactUs.jsx";
+import IndividualProject from "./Pages/IndividualProject.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <ProtectedRoute children={<Login />} to={"/"} />,
+  },
+  {
+    path: "/project/:id",
+    element: <IndividualProject/>
   },
   {
     path: "/register",
