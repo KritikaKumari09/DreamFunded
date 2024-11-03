@@ -30,7 +30,7 @@ const Login = () => {
             password: password
           })
           if(result.success === false){
-            resolve(result.error.issues[0].message);
+            reject(result.error.issues[0].message);
             return;
           }
           const response = await axios.post(
@@ -49,13 +49,13 @@ const Login = () => {
           }
         } catch (error) {
           console.log(error);
-          reject(error);
+          reject(error.response.statusText);
         }
       }),
       {
         loading: "Please Wait...",
         success: "Logged In",
-        error: "Something Went Wrong",
+        error: (error)=>error,
       }
     );
   };

@@ -9,9 +9,7 @@ export async function uploadOnCloudinary(path) {
     try {
         return await cloudinary.uploader
         .upload(
-            path, {
-                public_id: 'avatar',       
-            }
+            path
         )
     } catch (error) {
         console.log('Cloudinary Upload Failed!',error)
