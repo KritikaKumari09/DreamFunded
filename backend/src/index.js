@@ -53,7 +53,14 @@ app.use(cors({
     credentials:true
 }))
 
-app.use(express.json())// accept data in json and form
+//* we don't want to parse the incoming request body for the webhook route
+app.use((req, res, next) => {
+    if (req.originalUrl === '/api/payment/webhook') {
+      next(); //* Skip express.json() for the webhook route
+    } else {
+      express.json()(req, res, next); //* Apply express.json() for other routes
+    }
+});
 app.use(express.urlencoded({extended:true, limit:"16kb"}))// accept url  
 app.use(express.static("public"))// used to save some images, favicon if needed in public folder
 app.use(cookieParser())
@@ -70,11 +77,11 @@ app.get('/', (req,res)=>{
     console.log(req);
     return res.status(234).send('welocme')
 })
-app.post("/",async(req,res)=>{
-    console.log("File recieved")
-    const result = await uploadOnCloudinary(req.body.url)
-    return res.json({url: result})
-  })
+// app.post("/",async(req,res)=>{
+//     console.log("File recieved")
+//     const result = await uploadOnCloudinary(req.body.url)
+//     return res.json({url: result})
+//   })
 
 
 server.listen(process.env.PORT || 5000, async()=>{
