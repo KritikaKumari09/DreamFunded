@@ -97,7 +97,7 @@ const MyAccount = () => {
         key={project._id}
         className={project.status === 'Completed' ? 'p-4 border rounded shadow bg-green-400' : 'p-4 border rounded shadow'}
       >
-        <div>
+        <div key={project.id}>
           <a href={`/projects/${project._id}`} className="text-lg font-semibold text-blue-600 hover:underline">
             {project.name}
           </a>

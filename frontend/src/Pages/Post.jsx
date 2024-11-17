@@ -13,6 +13,7 @@ const Post = () => {
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState(new Date().toISOString().split('T')[0]);
   const [fund, setFund] = useState("");
+  const [tags, setTags] = useState("");
   const user = useSelector((state)=>state.user)
 
   const submitProject = async() =>{
@@ -39,7 +40,8 @@ const Post = () => {
           owner: user?._id,
           description: content,
           deadline,
-          totalFundsRequired: fund
+          totalFundsRequired: fund,
+          tags: tags,
         }
       )
       toast.success('Project added Successfully')
@@ -115,6 +117,12 @@ const Post = () => {
                 className="w-full h-12 px-4 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Enter amount"
               />
+            </div>
+            <div>
+              <label htmlFor="Tags" className="block text-sm font-medium text-gray-400 mb-1">
+                Tags
+              </label>
+              <input type="text" value={tags} onChange={(e)=>setTags(e.target.value)} name="tags" id="tag" placeholder="Add tags seperated by commas" className="rounded-md h-8 w-full font-serif font-thin text-[13px] pl-2"/>
             </div>
             <Button className="w-full h-12 text-lg font-semibold" onClick={submitProject}>
               Upload Project
