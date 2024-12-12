@@ -19,7 +19,7 @@ import Post from "./Pages/Post.jsx";
 import Project from "./Pages/Project.jsx"
 import MyAccount from "./Pages/MyAccount.jsx";
 import ContactUs from "./Pages/ContactUs.jsx";
-// import FundProjects from "./Pages/Fu";
+import FundProjects from "./Pages/FundProjects.jsx"
 import IndividualProject from "./Pages/IndividualProject.jsx";
 const router = createBrowserRouter([
   {
@@ -74,10 +74,10 @@ const router = createBrowserRouter([
     path: '/contact',
     element: <ContactUs/>
   },
-  // {
-  //   path: '/fundProjects',
-  //   element: <FundProjects/>
-  // },
+  {
+    path: '/fundProjects',
+    element: <FundProjects/>
+  },
   {
     path: "chat",
     loader: async () => {
