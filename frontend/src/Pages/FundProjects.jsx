@@ -20,7 +20,9 @@ const FundProjects = () => {
 
     fetchProjects();
   }, []);
-
+  useEffect(()=>{
+    console.log(projects)
+  },[projects])
   return (
     <>
       <Navbar />
@@ -46,7 +48,7 @@ const FundProjects = () => {
           <div key={project._id} className="projcard m-4 p-4 ">
             <p className="heading text-white font-bold text-lg mb-2">{project.name}</p>
             <p className="heading text-white font-bold text-base mb-2">Project owner:</p>
-            <p className=" text-sm mb-2"> {project.owner?.username|| 'N/A'}</p>
+            <p className=" text-sm mb-2"> {project.projectOwnerName?.username|| 'N/A'}</p>
             <div
               className="text-white text-sm mb-2"
               style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis' }}
