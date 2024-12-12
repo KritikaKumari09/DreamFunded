@@ -33,13 +33,21 @@ const addProject = async(req, res) => {
 
 
 // ! new Mongoose.Types.ObjectId is depricated 
-
+  let tags = req.body.tags.split(',');
+  tags = tags.map((tag)=>{
+    tag = tag.trim();
+    tag = tag.toLowerCase();
+    return tag;
+  })
+  console.log(tags);
+  // return res.json({'message': 'Tags are added successfully', 'tags': tags});
   const newProject = new Project({
     name,
     owner: new mongoose.Types.ObjectId(owner),
     description,
     deadline: new Date(deadline),
-    totalFundsRequired: Number(totalFundsRequired)
+    totalFundsRequired: Number(totalFundsRequired),
+    tags: tags,
   })
 
   newProject.save()
