@@ -5,4 +5,83 @@
     transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-
+/* From Uiverse.io by Pravins01 */ 
+.projcard {
+    position: relative;
+    /* width: 190px;
+    height: 254px; */
+    width: 320px; /* Set a fixed width for the project card */
+    height: auto; /* Allow height to adjust based on content */
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding: 12px;
+    gap: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    color: #e81cff
+    /* overflow: hidden; */
+  }
+  
+  .projcard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    left: -5px;
+    margin: auto;
+    width: auto;
+    /* height: 264px; */
+    height:auto;
+    border-radius: 10px;
+    background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100% );
+    z-index: -10;
+    pointer-events: none;
+    /* transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); */
+  }
+  
+  .projcard::after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    inset: 0;
+    /* background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100% ); */
+    transform: translate3d(0, 0, 0) scale(0.95);
+    filter: blur(20px);
+  }
+  
+  .heading {
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 700;
+  }
+  
+  .projcard p:not(.heading) {
+    font-size: 14px;
+  }
+  
+  .projcard p:last-child {
+    /* color: #e81cff; */
+    font-weight: 600;
+  }
+  
+  /* .projcard:hover::after {
+    filter: blur(30px);
+  } */
+  
+  /* .projcard:hover::before {
+    transform: rotate(-90deg) scaleX(1.34) scaleY(0.77);
+  } */
+  
+  /* added below using gpt */
+  /* .projcard-inner { */
+    /* overflow: hidden;  */
+    /* Apply overflow:hidden here */
+    /* max-height: 500px; */
+     /* Set a max height for the inner container */
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
+     /* Ensure spacing between items */
+/* } */
