@@ -29,7 +29,7 @@ import {
     {
       id: "2",
       title: "Fund Projects",
-      url: "#fundProjects",
+      url: "/fundProjects",
     },
     {
       id: "3",
