@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import DOMPurify from 'dompurify';
-import Navbar from '../components/Navbar.jsx';
-import { curve } from '../assets/index.js';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Navbar from "../components/Navbar.jsx";
+import { curve } from "../assets/index.js";
 import { BackgroundBeams } from "../components/ui/background-beams.jsx"; // Assuming BackgroundBeams is a separate component.
+import ProjectCard from "../components/ProjectCard.jsx";
 
 const FundProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -11,24 +11,27 @@ const FundProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/project/FundProjects', { withCredentials: true });
+        const response = await axios.get(
+          "http://localhost:8000/api/project/FundProjects",
+          { withCredentials: true }
+        );
         setProjects(response.data.data.projects);
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        console.error("Error fetching projects:", error);
       }
     };
 
     fetchProjects();
   }, []);
-  useEffect(()=>{
-    console.log(projects)
-  },[projects])
+  useEffect(() => {
+    console.log(projects);
+  }, [projects]);
   return (
     <>
       <Navbar />
       <BackgroundBeams className="absolute inset-0" />
-      <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-10 lg:mb-[6.25rem]">
-      <BackgroundBeams className="absolute inset-0" />
+      <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[1.875rem] md:mb-10 lg:mb-[2.25rem]">
+        <BackgroundBeams className="absolute inset-0" />
         <h1 className="h3 mt-6 mb-4">
           <span className="inline-block relative">
             Fund Projects{" "}
@@ -43,7 +46,7 @@ const FundProjects = () => {
         </h1>
       </div>
 
-      <div className="flex flex-wrap justify-center">
+      {/* <div className="flex flex-wrap justify-center">
         {projects.map((project) => (
           <div key={project._id} className="projcard m-4 p-4 ">
             <p className="heading text-white font-bold text-lg mb-2">{project.name}</p>
@@ -64,6 +67,18 @@ const FundProjects = () => {
            
             <p className="text-white text-sm">Status: {project.status}</p>
           </div>
+        ))}
+      </div> */}
+      <div className="px-16 z-1000 flex flex-wrap gap-4 justify-center">
+        {projects.map((project) => (
+          <ProjectCard
+            key={project._id}
+            projectName={project.name}
+            owner={project.projectOwnerName?.username || "N/A"}
+            description={project.description}
+            targetAmount={project.totalFundsRequired}
+            collectedAmount={project.fundsCollected}
+          />
         ))}
       </div>
     </>
