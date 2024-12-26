@@ -6,7 +6,7 @@ import DOMPurify from "dompurify";
 import { useParams } from 'react-router-dom';
 import axios from 'axios'
 
-const ProjectDescription = ({description }) => {
+const ProjectDescription = ({description, fullDescriptionNeeded}) => {
   // below function to preserve HTML tags while truncating
   const truncateText = (text, maxLength) => {
     if (!text) return "";
@@ -14,9 +14,6 @@ const ProjectDescription = ({description }) => {
     if (textContent.length <= maxLength) return text;
     return textContent.slice(0, maxLength) + "...";
   };
-  
-  
-  
   
   return (
        <>
@@ -33,10 +30,10 @@ const ProjectDescription = ({description }) => {
     maxHeight: '3em',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap' // Ensure content stays on the same line
+    // whiteSpace: 'nowrap' // Ensure content stays on the same line
   }}
   dangerouslySetInnerHTML={{
-    __html: DOMPurify.sanitize(truncateText(description, 100))
+    __html: DOMPurify.sanitize(truncateText(description, fullDescriptionNeeded?1000000:100))
   }}
 />
 
@@ -128,18 +125,15 @@ console.log(projectData)
             src={projectData.image || projectImage} // Use fetched project data
             alt="project-image" 
             className="w-full h-full object-cover"
+            draggable={false}
           />
         </div>
-        <div className="flex flex-col h-full text-black bg-white">
+        <div className="flex flex-col h-full text-black bg-white px-2 py-1">
           <h1> <span className='font-bold'>Project Name:</span>             {projectName}</h1>
           <p> <span className='font-bold'>Owner:</span> {owner}</p>
          
          <span className='font-bold'>Description: 
-        <ProjectDescription description={description}/> </span> 
-                  
-     
-          
-
+        <ProjectDescription description={description} fullDescriptionNeeded={true}/> </span> 
           <div className='p-2'><Timeline 
             createdTime={createdTime} 
             deadlineTime={deadlineTime}

@@ -14,7 +14,7 @@ const ProjectCardDescription = ({projectName,owner,description}) => {
         </div>
 
         <div
-            className="text-black text-sm mb-2 font-thin font-sans min-h-12"  
+            className="text-black text-sm mb-2 font-thin font-sans min-h-10"  
             style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis'}}
             dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
@@ -32,7 +32,7 @@ const Timeline = ({createdTime , deadlineTime}) =>{
     return (
         <>
           <CalendarDays size={16} className='inline'/>
-          <p className='inline px-2 font-medium text-sm'>
+          <p className='inline px-2 font-medium text-[11px]'>
           {createdTime} - {deadlineTime}
            
             </p>
@@ -105,7 +105,7 @@ const ProjectCard = ({projectId, projectName, owner, description, targetAmount, 
       </div>
       <Link 
         to={`/fund_Project/${projectId}`} 
-        className='bg-black hover:bg-gray-800 self-center text-white rounded-md min-h-8 py-2 mb-2 px-4 min-w-[80%]'
+        className='bg-black text-center hover:bg-gray-800 self-center text-white rounded-md min-h-8 py-2 mb-2 min-w-[90%]'
       >
         Show Project
       </Link>

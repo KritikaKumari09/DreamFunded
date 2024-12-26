@@ -47,10 +47,10 @@ const FundProjects = () => {
       </div>
 
      
-      <div className="px-16 z-1000 flex flex-wrap gap-10 justify-center mb-10">
+      <div className="px-16 z-1000 flex flex-wrap gap-4 justify-center mb-10">
         {projects.map((project) => (
           <ProjectCard
-          projectId={project._id}
+            projectId={project._id}
             projectName={project.name}
             owner={project.projectOwnerName?.username || "N/A"}
             description={project.description}
