@@ -53,31 +53,43 @@ const Timeline = ({createdTime , deadlineTime}) =>{
     )
 }
 
-const TargetBar = ({ targetAmount, collectedAmount }) => {
-  const [percentage, setPercentage] = React.useState(0);
-  const barRef = useRef(null);
 
-  useEffect(() => {
-    setPercentage((Number(collectedAmount) / Number(targetAmount)) * 100);
-    if (barRef.current) {
+
+const TargetBar = ({targetAmount, collectedAmount}) => {
+    const [percentage, setPercentage] = React.useState(0);
+    const barRef = useRef(null);
+
+    useEffect(()=>{
       barRef.current.style.width = `${percentage}%`;
-    }
-  }, [collectedAmount, targetAmount, percentage]);
+    },[percentage])
+    useEffect(() => {
+        setPercentage((Number(collectedAmount) / Number(targetAmount)) * 100);
+    }, []);
 
-  return (
-    <div className="p-4 ">
-      <div className="flex flex-row items-center mb-2">
-        <Target size={20} className="inline" />
-        <span className="inline text-base font-semibold px-2">{`$ ${targetAmount}`}</span>
-        <span className="ml-auto text-base font-semibold">{`${Math.floor(percentage)}% Funded`}</span>
-      </div>
-      <div className="bg-gray-200 w-full h-3 rounded-full">
-        <div className=" h-3 rounded-full transition-all duration-500" ref={barRef}></div>
-      </div>
-      <p className="text-sm mt-2 font-medium">{`$${Number(collectedAmount).toFixed(2).toLocaleString()} raised`}</p>
-    </div>
-  );
-};
+    return (
+        <>
+
+        
+        <div className='flex flex-row items-center'>
+          <Target size={16} className='inline'/>
+          <span className='inline text-[12px] font-semibold px-2'>{`$ ${targetAmount}`}</span>
+          <span className='ml-auto self-end text-[12px] font-semibold px-2'>{`${Math.floor(percentage)}% Funded `}</span>
+        </div>
+
+
+
+        <div className='bg-gray-200 w-full h-2 rounded-md mt-2'>
+            <div className={`bg-black h-2 rounded-md`} ref={barRef}></div>
+        </div>
+        <p className='text-[11px]'>{`$${(Number(collectedAmount).toFixed(2)).toLocaleString()} raised`}</p>
+        </>
+    )
+}
+
+
+
+
+
 
 
 const ProjectDisplay = () => {
