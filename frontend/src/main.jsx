@@ -21,6 +21,7 @@ import MyAccount from "./Pages/MyAccount.jsx";
 import ContactUs from "./Pages/ContactUs.jsx";
 import FundProjects from "./Pages/FundProjects.jsx"
 import IndividualProject from "./Pages/IndividualProject.jsx";
+import ProjectDisplay from "./Pages/FundProject.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
   {
     path: '/fundProjects',
     element: <FundProjects/>
+  },
+  {
+    path: '/fund_Project/:id',
+    element: <ProjectDisplay/>
   },
   {
     path: "chat",

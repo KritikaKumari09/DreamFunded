@@ -6,9 +6,9 @@ import { date } from 'zod';
 
 const MyAccount = () => {
   const user = useSelector((state)=>state.user);
-  const [contributions, setContributions] = useState([{id: '1', projectId: '23je0409', projectTitle: 'Jarvis 2.0', amount: 5000}]);
+  const [contributions, setContributions] = useState([{id: '', projectId: '', projectTitle: 'You have made no contributions.', amount:0 }]);
   const [createdProjects, setCreatedProjects] = useState([{id: '1', status: 'Done', title: 'Megatronics'}]);
-  const [paymentHistory, setPaymentHistory] = useState([{id: '1', projectTitle: 'Jarvis 1.0', amount: 3000, date: new Date(Date.now())}]);
+  const [paymentHistory, setPaymentHistory] = useState([{id: '1', projectTitle: 'You have no payment history', amount: 0, date: new Date(Date.now())}]);
 
   useEffect(() => {
     fetchUserData();
@@ -62,9 +62,9 @@ const MyAccount = () => {
         <div>
           <h2 className="text-2xl font-semibold">{user.username}</h2>
           <p className="text-gray-600">Email: {user.email}</p>
-          <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          {/* <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
             Edit Profile
-          </button>
+          </button> */}
         </div>
       </div>
 

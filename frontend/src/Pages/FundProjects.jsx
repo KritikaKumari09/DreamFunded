@@ -46,38 +46,18 @@ const FundProjects = () => {
         </h1>
       </div>
 
-      {/* <div className="flex flex-wrap justify-center">
-        {projects.map((project) => (
-          <div key={project._id} className="projcard m-4 p-4 ">
-            <p className="heading text-white font-bold text-lg mb-2">{project.name}</p>
-            <p className="heading text-white font-bold text-base mb-2">Project owner:</p>
-            <p className=" text-sm mb-2"> {project.projectOwnerName?.username|| 'N/A'}</p>
-            <div
-              className="text-white text-sm mb-2"
-              style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis' }}
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(
-                  project.description.length > 100
-                    ? project.description.substring(0, 100) + '...'
-                    : project.description
-                ),
-              }}
-            />
-            <p className=" text-sm">Deadline: {new Date(project.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-           
-            <p className="text-white text-sm">Status: {project.status}</p>
-          </div>
-        ))}
-      </div> */}
-      <div className="px-16 z-1000 flex flex-wrap gap-4 justify-center">
+     
+      <div className="px-16 z-1000 flex flex-wrap gap-10 justify-center mb-10">
         {projects.map((project) => (
           <ProjectCard
-            key={project._id}
+          projectId={project._id}
             projectName={project.name}
             owner={project.projectOwnerName?.username || "N/A"}
             description={project.description}
             targetAmount={project.totalFundsRequired}
             collectedAmount={project.fundsCollected}
+            createdTime={new Date(project.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            deadlineTime={new Date(project.deadline).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           />
         ))}
       </div>
