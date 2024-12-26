@@ -5,36 +5,27 @@ import {User,CalendarDays,Target} from "lucide-react"
 import { Link, useNavigate } from "react-router-dom";
 
 const ProjectCardDescription = ({projectName,owner,description}) => {
-    
-// below function to preserve HTML tags while truncating
-  const truncateText = (text, maxLength) => {
-    if (!text) return "";
-    const textContent = text.replace(/<[^>]*>/g, ''); // Remove HTML tags for length check
-    if (textContent.length <= maxLength) return text;
-    return textContent.slice(0, maxLength) + "...";
-  };
-  
-  return (
-    <>
-      <div className="bg-white text-black">
-        <h2 className="max-h-6 overflow-hidden font-extrabold text-lg">
-          {projectName || "Project Name"}
-        </h2>
-        <User size={16} className="inline" />
-        <p className="text-sm px-2 inline">{owner || "Project Owner"}</p>
-      </div>
-  
-      <div
-        className="text-black text-sm mb-2 font-thin font-sans min-h-12"
-        style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis' }}
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(truncateText(description, 100))
-        }}
-      />
-    </>
-  );
+    return (
+        <>
+        <div className='bg-white text-black'>
+            <h2 className='max-h-6 overflow-hidden font-extrabold text-lg'>{projectName || "Project Name"}</h2>
+            <User size={16} className='inline'/>
+            <p className='text-sm px-2 inline'>{owner || "Project Owner"}</p>
+        </div>
 
-
+        <div
+            className="text-black text-sm mb-2 font-thin font-sans min-h-12"  
+            style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis'}}
+            dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(
+                description?.length > 100
+                ? description.substring(0, 100) + '...'
+                : description
+            ),
+            }}
+        />
+        </>
+    )
 }
 
 const Timeline = ({createdTime , deadlineTime}) =>{
@@ -53,12 +44,12 @@ const TargetBar = ({targetAmount, collectedAmount}) => {
     const [percentage, setPercentage] = React.useState(0);
     const barRef = useRef(null);
 
+    useEffect(()=>{
+      barRef.current.style.width = `${percentage}%`;
+    },[percentage])
     useEffect(() => {
         setPercentage((Number(collectedAmount) / Number(targetAmount)) * 100);
-        if(barRef.current){
-            barRef.current.style.width = `${percentage}%`;
-        }
-    }, [collectedAmount, targetAmount]);
+    }, []);
 
     return (
         <>
@@ -73,7 +64,7 @@ const TargetBar = ({targetAmount, collectedAmount}) => {
 
 
         <div className='bg-gray-200 w-full h-2 rounded-md mt-2'>
-            <div className='bg-black w-[0%] h-2 rounded-md' ref={barRef}></div>
+            <div className={`bg-black h-2 rounded-md`} ref={barRef}></div>
         </div>
         <p className='text-[11px]'>{`$${(Number(collectedAmount).toFixed(2)).toLocaleString()} raised`}</p>
         </>
@@ -103,8 +94,8 @@ const TargetBar = ({targetAmount, collectedAmount}) => {
 
 const ProjectCard = ({projectId, projectName, owner, description, targetAmount, collectedAmount, createdTime, deadlineTime }) => {
   return (
-    <div className='min-h-96 flex flex-col min-w-72 max-w-72 bg-white rounded-md text-black shadow-sm relative'>
-      <img src={projectImage} alt="project-image" className='rounded-md hover:scale-100'/>
+    <div className='min-h-96 flex flex-col min-w-72 max-w-72 bg-white rounded-md text-black shadow-sm relative my-10 overflow-hidden transition-all duration-1000'>
+      <img src={projectImage} alt="project-image" className='hover:scale-105' style={{borderTopLeftRadius: '6px',borderTopRightRadius: '6px'}}/>
       <div className='p-2'>
         
         <ProjectCardDescription projectName={projectName} owner={owner} description={description}/>
