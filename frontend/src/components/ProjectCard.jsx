@@ -13,7 +13,7 @@ const ProjectCardDescription = ({projectName,owner,description}) => {
         </div>
 
         <div
-            className="text-black text-sm mb-2 font-thin font-sans min-h-12"  
+            className="text-black text-sm mb-2 font-thin font-sans min-h-10"  
             style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis'}}
             dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
@@ -40,12 +40,12 @@ const TargetBar = ({targetAmount, collectedAmount}) => {
     const [percentage, setPercentage] = React.useState(0);
     const barRef = useRef(null);
 
+    useEffect(()=>{
+      barRef.current.style.width = `${percentage}%`;
+    },[percentage])
     useEffect(() => {
         setPercentage((Number(collectedAmount) / Number(targetAmount)) * 100);
-        if(barRef.current){
-            barRef.current.style.width = `${percentage}%`;
-        }
-    }, [collectedAmount, targetAmount]);
+    }, []);
 
     return (
         <>
@@ -55,7 +55,7 @@ const TargetBar = ({targetAmount, collectedAmount}) => {
           <span className='ml-auto self-end text-[12px] font-semibold px-2'>{`${Math.floor(percentage)}% Funded `}</span>
         </div>
         <div className='bg-gray-200 w-full h-2 rounded-md mt-2'>
-            <div className='bg-black w-[0%] h-2 rounded-md' ref={barRef}></div>
+            <div className={`bg-black h-2 rounded-md`} ref={barRef}></div>
         </div>
         <p className='text-[11px]'>{`$${(Number(collectedAmount).toFixed(2)).toLocaleString()} raised`}</p>
         </>
@@ -64,8 +64,8 @@ const TargetBar = ({targetAmount, collectedAmount}) => {
 
 const ProjectCard = ({projectName ,owner, description, targetAmount, collectedAmount}) => {
   return (
-    <div className='min-h-96 flex flex-col min-w-72 max-w-72 bg-white rounded-md text-black shadow-sm relative'>
-      <img src={projectImage} alt="project-image" className='rounded-md hover:scale-100'/>
+    <div className='min-h-96 flex flex-col min-w-72 max-w-72 bg-white rounded-md text-black shadow-sm relative my-10 overflow-hidden transition-all duration-1000'>
+      <img src={projectImage} alt="project-image" className='hover:scale-105' style={{borderTopLeftRadius: '6px',borderTopRightRadius: '6px'}}/>
       <div className='p-2'>
         <ProjectCardDescription projectName={projectName} owner={owner} description={description}/>
         <Timeline/>
