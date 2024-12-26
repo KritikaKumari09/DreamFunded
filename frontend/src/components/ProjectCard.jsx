@@ -4,29 +4,69 @@ import projectImage from  '/project.jpg'
 import {User,CalendarDays,Target} from "lucide-react"
 import { Link, useNavigate } from "react-router-dom";
 
-const ProjectCardDescription = ({projectName,owner,description}) => {
-    return (
-        <>
-        <div className='bg-white text-black'>
-            <h2 className='max-h-6 overflow-hidden font-extrabold text-lg'>{projectName || "Project Name"}</h2>
-            <User size={16} className='inline'/>
-            <p className='text-sm px-2 inline'>{owner || "Project Owner"}</p>
-        </div>
+// const ProjectCardDescription = ({projectName,owner,description}) => {
+//     return (
+//         <>
+//         <div className='bg-white text-black'>
+//             <h2 className='max-h-6 overflow-hidden font-extrabold text-lg'>{projectName || "Project Name"}</h2>
+//             <User size={16} className='inline'/>
+//             <p className='text-sm px-2 inline'>{owner || "Project Owner"}</p>
+//         </div>
 
+//         <div
+//             className="text-black text-sm mb-2 font-thin font-sans min-h-10"  
+//             style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis'}}
+//             dangerouslySetInnerHTML={{
+//             __html: DOMPurify.sanitize(
+//                 description?.length > 100
+//                 ? description.substring(0, 100) + '...'
+//                 : description
+//             ),
+//             }}
+//         />
+//         </>
+//     )
+// }
+
+const ProjectCardDescription = ({projectName,owner,description}) => {
+    
+  // below function to preserve HTML tags while truncating
+    const truncateText = (text, maxLength) => {
+      if (!text) return "";
+      const textContent = text.replace(/<[^>]*>/g, ''); // Remove HTML tags for length check
+      if (textContent.length <= maxLength) return text;
+      return textContent.slice(0, maxLength) + "...";
+    };
+    
+    return (
+      <>
+        <div className="bg-white text-black">
+          <h2 className="max-h-6 overflow-hidden font-extrabold text-lg">
+            {projectName || "Project Name"}
+          </h2>
+          <User size={16} className="inline" />
+          <p className="text-sm px-2 inline">{owner || "Project Owner"}</p>
+        </div>
+    
         <div
-            className="text-black text-sm mb-2 font-thin font-sans min-h-10"  
-            style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis'}}
-            dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(
-                description?.length > 100
-                ? description.substring(0, 100) + '...'
-                : description
-            ),
-            }}
+          className="text-black text-sm mb-2 font-thin font-sans min-h-12"
+          style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis' }}
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(truncateText(description, 100))
+          }}
         />
-        </>
-    )
-}
+      </>
+    );
+  
+  
+  }
+  
+  
+  
+
+
+
+
 
 const Timeline = ({createdTime , deadlineTime}) =>{
     return (
