@@ -15,6 +15,7 @@ import ProtectedRoute from "./middleware/protectedRoute.jsx";
 import ChatApp from "./Pages/ChatApp.jsx";
 import HomePage from "./Pages/HomePage.jsx";
 import SignUp from "./Pages/SignUp.jsx";
+import Checkout from "./Pages/Checkout.jsx"
 import Post from "./Pages/Post.jsx";
 import Project from "./Pages/Project.jsx"
 import MyAccount from "./Pages/MyAccount.jsx";
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       },
      
     ],
+  },
+  {
+    path: '/payment',
+    element: <Checkout/>
   },
   {
     path: "/addProject",
