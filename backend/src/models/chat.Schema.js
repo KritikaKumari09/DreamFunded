@@ -6,6 +6,10 @@ const chatSchema = new Schema(
       type: String,
       required: true,
     },
+    projectID: {
+      type: mongoose.Types.ObjectId,
+      ref: "Project"
+    },
     groupIcon: {
       type: String,
     },

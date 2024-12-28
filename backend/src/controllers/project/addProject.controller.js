@@ -1,6 +1,7 @@
 import {ApiResponse} from '../../utils/ApiResponse.js'
 import {Project} from '../../models/projectSchema.js'
 import mongoose from 'mongoose';
+import { Chat } from '../../models/chat.Schema.js';
 
 const addProject = async(req, res) => {
   const { name, owner, description, deadline, totalFundsRequired } = req.body;
@@ -41,7 +42,7 @@ const addProject = async(req, res) => {
   })
   console.log(tags);
   // return res.json({'message': 'Tags are added successfully', 'tags': tags});
-  const newProject = new Project({
+    const newProject = new Project({
     name,
     owner: new mongoose.Types.ObjectId(owner),
     description,
@@ -51,7 +52,10 @@ const addProject = async(req, res) => {
   })
 
   newProject.save()
-  .then((data)=>{
+  .then(async(data)=>{
+    const newChat = new Chat({admin: new mongoose.Types.ObjectId(owner),name: name, projectID: newProject._id});
+    newChat.participants.push(new mongoose.Types.ObjectId(owner));
+    await newChat.save();
     return res.status(200).json(new ApiResponse('Project added successfully',data))
   })
   .catch((error)=>{

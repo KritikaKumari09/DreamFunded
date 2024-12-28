@@ -64,6 +64,7 @@ app.use((req, res, next) => {
 app.use(express.urlencoded({extended:true, limit:"16kb"}))// accept url  
 app.use(express.static("public"))// used to save some images, favicon if needed in public folder
 app.use(cookieParser())
+// app.use(express.json()) //! disabling it because webhook signature are lost after parsing
 
 
 //routes

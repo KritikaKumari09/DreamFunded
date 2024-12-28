@@ -60,4 +60,9 @@ projectSchema.pre("save", function (next) {
   this.fundsRequired = this.TotalFundsRequired - this.fundsCollected;
   next();
 });
+
+projectSchema.methods.addFunds = function (user, amount) {
+  this.fundsCollected += amount;
+  this.fundingHistory.push({user, amount });
+};
 export const Project = mongoose.model("Project", projectSchema);

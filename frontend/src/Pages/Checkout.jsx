@@ -10,7 +10,7 @@ const Checkout = () => {
         "http://localhost:8000/api/payment/checkout"
       );
       console.log(result.data.session.url);
-      window.location.href = result.data.session.url;
+      window.location.href = result.data?.session.url;
     } catch (error) {
       console.log(error);
     }
