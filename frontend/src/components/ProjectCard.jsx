@@ -49,7 +49,7 @@ const ProjectCardDescription = ({projectName,owner,description}) => {
         </div>
     
         <div
-          className="text-black text-sm mb-2 font-thin font-sans min-h-12"
+          className="text-black text-sm mb-2 font-thin font-sans min-h-10"
           style={{ maxHeight: '3em', overflow: 'hidden', textOverflow: 'ellipsis' }}
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(truncateText(description, 100))
