@@ -1,4 +1,5 @@
 import { User } from "../models/userSchema.js"
+import { ApiError } from "../utils/ApiError.js"
 
 
 export const generateAccessAndRefreshTokens= async(userId)=>{
