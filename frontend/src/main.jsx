@@ -23,10 +23,13 @@ import ContactUs from "./Pages/ContactUs.jsx";
 import FundProjects from "./Pages/FundProjects.jsx"
 import IndividualProject from "./Pages/IndividualProject.jsx";
 import ProjectDisplay from "./Pages/FundProject.jsx";
+import ErrorBoundary from "./Pages/ErrorBoundary.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: "",
@@ -37,56 +40,69 @@ const router = createBrowserRouter([
   },
   {
     path: '/payment',
-    element: <Checkout/>
+    element: <Checkout/>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/addProject",
     element: <Post />,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/login",
     element: <ProtectedRoute children={<Login />} to={"/"} />,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/project/:id",
-    element: <IndividualProject/>
+    element: <IndividualProject/>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/register",
     element: <SignUp />,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/myprofile",
     element: <MyAccount />,
+    errorElement: <ErrorBoundary />,
   },
   
   {
     path: "/forget",
     element: <Forget />,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "/forget/:id/verify",
     element: <ForgetVerify></ForgetVerify>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path:"/verifyEmail/:id",
-    element:<EmailVerififcationPage/>
+    element:<EmailVerififcationPage/>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: '/projects',
-    element: <Project/>
+    element: <Project/>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: '/contact',
-    element: <ContactUs/>
+    element: <ContactUs/>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: '/fundProjects',
-    element: <FundProjects/>
+    element: <FundProjects/>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: '/fund_Project/:id',
-    element: <ProjectDisplay/>
+    element: <ProjectDisplay/>,
+    errorElement: <ErrorBoundary />,
   },
   {
     path: "chat",
@@ -100,7 +116,13 @@ const router = createBrowserRouter([
       }
     },
     element: <ChatApp />,
+    errorElement: <ErrorBoundary />,
   },
+  // Catch-all route for 404 errors
+  {
+    path: "*",
+    element: <ErrorBoundary />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
