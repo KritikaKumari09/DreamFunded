@@ -67,7 +67,7 @@ const SignUp = () => {
     if (!timer) clearTimeout(timer);
     const timerID = setTimeout(async () => {
       const response = await axios.get(
-        `http://localhost:8000/api/user/checkUsername/${username}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/user/checkUsername/${username}`
       );
       setIsUsernameAvailable(response.data.data.isAvailable);
       setMessage(response.data.message);
@@ -106,7 +106,7 @@ const SignUp = () => {
           formData.append("password", password);
           formData.append("avatarImage", croppedImageFile);  // Use the cropped image
           const response = await axios.post(
-            "http://localhost:8000/api/user/register",
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/register`,
             formData,
             { withCredentials: true }
           );

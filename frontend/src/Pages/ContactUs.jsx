@@ -23,7 +23,7 @@ const ContactUs = () => {
       new Promise(async (resolve, reject) => {
         try {
           const response = await axios.post(
-            "http://localhost:8000/api/user/logout",
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/logout`,
             {},
             { withCredentials: true }
           );
@@ -57,7 +57,7 @@ const ContactUs = () => {
           email: email,
           message: message
         }
-        const response = await axios.post('http://localhost:8000/api/user/feedback',data)
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/feedback`,data)
         setName("")
         setEmail("")
         setMessage("")

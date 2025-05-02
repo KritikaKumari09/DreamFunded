@@ -37,7 +37,7 @@ const ChatApp = () => {
 
   useEffect(() => {
     if (user) {
-      socket.current = io("http://localhost:8000", {
+      socket.current = io(`${import.meta.env.VITE_BACKEND_URL}`, {
         query: { username: user?.username, id: user?._id },
       });
     }
@@ -99,7 +99,7 @@ const ChatApp = () => {
       const msg = newMessage;
       setNewMessage("");
       await axios.post(
-        "http://localhost:8000/api/chat/sendMessage",
+        `${import.meta.env.VITE_BACKEND_URL}/api/chat/sendMessage`,
         { groupId: chat._id, message: msg },
         { withCredentials: true }
       );
@@ -128,49 +128,36 @@ const ChatApp = () => {
   };
 
   /* Function to logout the user */
-  // const handleLogout = async () => {
-  //   try {
-  //     dispatch(logout());
-  //     await axios.post(
-  //       "http://localhost:8000/api/user/logout",
-  //       {},
-  //       { withCredentials: true }
-  //     );
-  //   } catch (error) {}
-  // };
+  const handleLogout = () => {
+    toast.promise(
+      new Promise(async (resolve, reject) => {
+        try {
+          const response = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/logout`,
+            {},
+            { withCredentials: true }
+          );
 
-
-  
-const handleLogout = () => {
-  toast.promise(
-    new Promise(async (resolve, reject) => {
-      try {
-        const response = await axios.post(
-          "http://localhost:8000/api/user/logout",
-          {},
-          { withCredentials: true }
-        );
-
-        if (response.status === 200) {  // Check for a successful response status
-          resolve("Logged Out Successfully");
-          setTimeout(() => {
-            dispatch(logout());
-            navigate("/");
-          }, 1000);
-        } else {
-          reject("Something Went Wrong");
+          if (response.status === 200) {  // Check for a successful response status
+            resolve("Logged Out Successfully");
+            setTimeout(() => {
+              dispatch(logout());
+              navigate("/");
+            }, 1000);
+          } else {
+            reject("Something Went Wrong");
+          }
+        } catch (error) {
+          reject(error.response?.data?.message || "An error occurred during logout");
         }
-      } catch (error) {
-        reject(error.response?.data?.message || "An error occurred during logout");
+      }),
+      {
+        loading: "Please Wait...",
+        success: "Logged Out",
+        error: "Something Went Wrong",
       }
-    }),
-    {
-      loading: "Please Wait...",
-      success: "Logged Out",
-      error: "Something Went Wrong",
-    }
-  );
-};
+    );
+  };
 
   return (
     <>

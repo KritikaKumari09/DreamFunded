@@ -77,8 +77,8 @@ export const handleCheckout = async (req,res)=>{
         },
         customer: customer.id,
         mode: 'payment',
-        success_url: `http://localhost:8000/api/payment/success?id=${projectID}`,
-        cancel_url: 'http://localhost:8000/api/payment/cancel'
+        success_url: `${process.env.BACKEND_URL}/api/payment/success?id=${projectID}`,
+        cancel_url: `${process.env.BACKEND_URL}/api/payment/cancel`
     })
     console.log('Thsi is a session',session)
     return res.json({message: "Payment Initiated",session})

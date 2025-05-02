@@ -95,7 +95,7 @@ const ProjectDisplay = () => {
     const fetchProjectData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/project/fund_Project/${id}`,
+          `${import.meta.env.VITE_BACKEND_URL}/api/project/fund_Project/${id}`,
           { withCredentials: true }
         ); // Replace with your API endpoint
         // const data = await response.json();
@@ -128,7 +128,7 @@ const ProjectDisplay = () => {
       console.log(username);
       console.log(email);
       const response = await axios.post(
-        `http://localhost:8000/api/payment/checkout?projectId=${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/payment/checkout?projectId=${id}`,
         { amount, name: username, email },
         { withCredentials: true }
       );

@@ -55,7 +55,7 @@ const EmailVerififcationPage = () => {
         for (let i = 0; i < 6; i++) code += otp[i];
         try {
           const response = await axios.post(
-            `http://localhost:8000/api/user/verifyEmail/${id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/verifyEmail/${id}`,
             {
               otp: code,
               

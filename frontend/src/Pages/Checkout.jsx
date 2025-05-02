@@ -6,13 +6,12 @@ const Checkout = () => {
   const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
-      const result = await axios.post(
-        "http://localhost:8000/api/payment/checkout"
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/payment/checkout`
       );
-      console.log(result.data.session.url);
-      window.location.href = result.data?.session.url;
+      window.location.href = response.data.url;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

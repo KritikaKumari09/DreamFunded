@@ -12,7 +12,7 @@ const FundProjects = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/project/FundProjects",
+          `${import.meta.env.VITE_BACKEND_URL}/api/project/FundProjects`,
           { withCredentials: true }
         );
         setProjects(response.data.data.projects);

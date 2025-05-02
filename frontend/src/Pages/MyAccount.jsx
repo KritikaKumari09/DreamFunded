@@ -29,7 +29,7 @@ const MyAccount = () => {
 
   const fetchCreatedProjects = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/project/getAllProject',{withCredentials: true});
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/project/getAllProject`,{withCredentials: true});
       if(response){
         setCreatedProjects(response.data.data.projects)
       }

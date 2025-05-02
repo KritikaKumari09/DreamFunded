@@ -15,7 +15,7 @@ const Forget = () => {
       new Promise(async (resolve, reject) => {
         try {
           const response = await axios.get(
-            `http://localhost:8000/api/user/forget/${username}`
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/forget/${username}`
           );
           if (!response) reject("Something Went Wrong");
           else {

@@ -34,7 +34,7 @@ const Post = () => {
         }
       }
 
-      const response = await axios.post('http://localhost:8000/api/project/addProject',
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/project/addProject`,
         {
           name: title,
           owner: user?._id,

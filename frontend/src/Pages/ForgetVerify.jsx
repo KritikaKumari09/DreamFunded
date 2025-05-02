@@ -34,7 +34,7 @@ const ForgetVerify = () => {
         for (let i = 0; i < 6; i++) code += otp[i];
         try {
           const response = await axios.post(
-            `http://localhost:8000/api/user/forget/${id}/verify`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/user/forget/${id}/verify`,
             {
               otp: code,
               newPassword,
