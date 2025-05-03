@@ -47,11 +47,19 @@ io.on("connection",async(socket)=>{
     
 })
 
-
-app.options('*', cors({
+app.use(cors({
     origin: [process.env.CORS_ORIGIN, 'https://checkout.stripe.com'],
     credentials: true
-}));
+}))
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", process.env.CORS_ORIGIN);
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+  
 
 //* we don't want to parse the incoming request body for the webhook route
 app.use((req, res, next) => {
@@ -78,6 +86,8 @@ app.get('/', (req,res)=>{
     console.log(req);
     return res.status(234).send('welocme')
 })
+
+app.get()
 // app.post("/",async(req,res)=>{
 //     console.log("File recieved")
 //     const result = await uploadOnCloudinary(req.body.url)
