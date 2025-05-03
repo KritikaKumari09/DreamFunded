@@ -77,8 +77,8 @@ export const handleCheckout = async (req,res)=>{
         },
         customer: customer.id,
         mode: 'payment',
-        success_url: `${process.env.BACKEND_URL}/api/payment/success?id=${projectID}`,
-        cancel_url: `${process.env.BACKEND_URL}/api/payment/cancel`
+        success_url: `https://dreamfunded-backend.onrender.com/api/payment/success?id=${projectID}`,
+        cancel_url: `https://dreamfunded-backend.onrender.com/api/payment/cancel`
     })
     console.log('Thsi is a session',session)
     return res.json({message: "Payment Initiated",session})
