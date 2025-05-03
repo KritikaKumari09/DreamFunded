@@ -47,7 +47,7 @@ const handleLogout = () => {
     new Promise(async (resolve, reject) => {
       try {
         const response = await axios.post(
-          "http://localhost:8000/api/user/logout",
+          `${import.meta.env.VITE_BACKEND_URL}/api/user/logout`,
           {},
           { withCredentials: true }
         );
