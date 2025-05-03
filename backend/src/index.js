@@ -87,7 +87,6 @@ app.get('/', (req,res)=>{
     return res.status(234).send('welocme')
 })
 
-app.get()
 // app.post("/",async(req,res)=>{
 //     console.log("File recieved")
 //     const result = await uploadOnCloudinary(req.body.url)
