@@ -48,10 +48,10 @@ io.on("connection",async(socket)=>{
 })
 
 
-app.use(cors({
-    origin: [process.env.CORS_ORIGIN,'https://checkout.stripe.com'],
-    credentials:true
-}))
+app.options('*', cors({
+    origin: [process.env.CORS_ORIGIN, 'https://checkout.stripe.com'],
+    credentials: true
+}));
 
 //* we don't want to parse the incoming request body for the webhook route
 app.use((req, res, next) => {
