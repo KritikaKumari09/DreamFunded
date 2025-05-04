@@ -36,15 +36,17 @@ const loggedInUser= await User.findById(user._id).select("-password -refreshToke
 
  
 
-const options={
-    httpOnly:true,
-    secure:true
- } 
+const options = {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',  // Important for cross-origin requests
+    path: '/'          // Ensure cookie is accessible on all paths
+}
 
- return res
+return res
  .status(200)
- .cookie("accessToken", accessToken,options)
- .cookie("refreshToken",refreshToken,options)
+ .cookie("accessToken", accessToken, options)
+ .cookie("refreshToken", refreshToken, options)
 
  .json(
     new ApiResponse(

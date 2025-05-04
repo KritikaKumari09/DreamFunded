@@ -27,15 +27,17 @@ export const refreshAccessToken= asyncHandler(async(req,res)=>{
         if(incomingRefreshToken !== user?.refreshToken){
             throw new ApiError(401 , "Refresh token is expired or used")
         }
-        const options={
-            httpOnly:true,
-            secure:true
+        const options = {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',  // Important for cross-origin requests
+            path: '/'          // Ensure cookie is accessible on all paths
         }
         const {accessToken, newrefreshToken}=await generateAccessAndRefreshTokens(user._id)
         return res
         .status(200)
-        .cookie("accesToken",accessToken,options)
-        .cookie("refreshToken", newrefreshToken,options)
+        .cookie("accessToken", accessToken, options)  // Fixed typo from "accesToken" to "accessToken"
+        .cookie("refreshToken", newrefreshToken, options)
         .json(
             new ApiResponse(
                "Access token refreshed", {accessToken,refreshToken:newrefreshToken}

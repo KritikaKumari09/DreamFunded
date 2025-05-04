@@ -19,13 +19,16 @@ export const logoutUser= asyncHandler(async(req,res)=>{
     {new : true} 
 )
 
-const options={
-    httpOnly:true,
-    secure:true
- } 
+const options = {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none',  // Important for cross-origin requests
+    path: '/'          // Ensure cookie is accessible on all paths
+} 
+
 return res.status(200)
 .clearCookie("accessToken", options)
-.clearCookie("refreshToken",options)
+.clearCookie("refreshToken", options)
 .status(200)
 .json(new ApiResponse("User logged out", {}, ))
 
